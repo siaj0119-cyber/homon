@@ -1373,7 +1373,7 @@
                         </div>
                     </div>
                     <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
-                        <h4 class="font-black text-xl text-black">웹빌더 서비스</h4>
+                        <h4 class="font-black text-xl text-black">웹페이지 빌더 플랫폼</h4>
                         <p class="text-sm font-semibold text-stone-500 mt-1">DB 수집 랜딩페이지 빌더</p>
                     </div>
                 </div>
@@ -1405,7 +1405,7 @@
                         </div>
                     </div>
                     <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
-                        <h4 class="font-black text-xl text-black">SNS 분석 서비스</h4>
+                        <h4 class="font-black text-xl text-black">SNS 분석 플랫폼</h4>
                         <p class="text-sm font-semibold text-stone-500 mt-1">콘텐츠 서칭 및 분석</p>
                     </div>
                 </div>
@@ -1698,7 +1698,7 @@
                     </path>
                 </svg>
             </div>
-            <h3 class="text-2xl font-black text-black mb-2">문의하기</h3>
+            <h3 id="custom-modal-title" class="text-2xl font-black text-black mb-2">문의하기</h3>
             <p id="custom-modal-text" class="text-stone-500 font-medium mb-6 break-keep">
                 현재 데모 페이지입니다.<br>실제 서비스에서는 문의 폼으로 이동합니다.
             </p>
@@ -1769,11 +1769,19 @@
 
         // Modal Logic
         function openModal(msg) {
+            const titleEl = document.getElementById('custom-modal-title');
             if (msg) {
                 const modalText = document.getElementById('custom-modal-text');
                 if (modalText) {
                     // 줄바꿈 문자를 <br>로 변환
                     modalText.innerHTML = msg.replace(/\n/g, '<br>');
+                }
+                if (titleEl) {
+                    titleEl.innerText = '신청 완료';
+                }
+            } else {
+                if (titleEl) {
+                    titleEl.innerText = '문의하기';
                 }
             }
             document.getElementById('custom-modal').classList.add('show');
@@ -1960,7 +1968,7 @@
         // ============================================
 
         // ── 설정 ──
-        const WORKER_URL = 'https://patient-voice-d70d.siaj0119.workers.dev';
+        const WORKER_URL = 'https://hompi-worker.siaj1112.workers.dev';
         const SUPABASE_URL = 'https://ctszrxwezwvisvqkcrzg.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3pyeHdlend2aXN2cWtjcnpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDI2NjEsImV4cCI6MjEwMDk3ODY2MX0.ElX97vgA6rULL_W-SwD87cOvAlTI00gKaVgansTLiXg';
 
