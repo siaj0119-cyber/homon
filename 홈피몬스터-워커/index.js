@@ -124,8 +124,10 @@ export default {
       // ── STEP 6: 알림 발사 (Promise.allSettled, 백그라운드) ──
       const notifications = [];
 
+      const pc = settings.page_config || {};
+
       // 6-A. 텔레그램 알림
-      if (settings.telegram_bot_token && settings.telegram_chat_id) {
+      if (pc.telegram === true && settings.telegram_bot_token && settings.telegram_chat_id) {
         const pageName = settings.page_name || '홈페이지';
         const msg = [
           `🚨 [${pageName}] 신규 DB 접수`,
@@ -151,7 +153,7 @@ export default {
       }
 
       // 6-B. 웹훅 (CRM/구글시트 등)
-      if (settings.webhook_url) {
+      if (pc.webhook === true && settings.webhook_url) {
         notifications.push(
           fetch(settings.webhook_url, {
             method: 'POST',

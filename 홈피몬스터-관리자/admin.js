@@ -828,13 +828,15 @@ async function fetchSettings() {
         if (error && error.code !== 'PGRST116') throw error;
 
         if (data) {
+            const pc = data.page_config || {};
+
             if (document.getElementById('setting-page-name')) document.getElementById('setting-page-name').value = data.page_name || '';
             if (document.getElementById('top-page-name-display') && data.page_name) document.getElementById('top-page-name-display').textContent = data.page_name;
             if (document.getElementById('setting-og-title')) document.getElementById('setting-og-title').value = data.og_title || '';
             if (document.getElementById('setting-og-desc')) document.getElementById('setting-og-desc').value = data.og_description || '';
             if (document.getElementById('setting-head-script')) document.getElementById('setting-head-script').value = data.head_script || '';
             if (document.getElementById('setting-foot-script')) document.getElementById('setting-foot-script').value = data.foot_script || '';
-            updateToggleUI('scripts', !!data.head_script || !!data.foot_script);
+            updateToggleUI('scripts', pc.scripts === true);
 
             if (document.getElementById('setting-meta-pixel')) document.getElementById('setting-meta-pixel').value = data.meta_pixel_id || '';
             if (document.getElementById('setting-google-ads')) document.getElementById('setting-google-ads').value = data.google_ads_id || '';
@@ -842,21 +844,20 @@ async function fetchSettings() {
             if (document.getElementById('setting-tiktok-pixel')) document.getElementById('setting-tiktok-pixel').value = data.tiktok_pixel_id || '';
             if (document.getElementById('setting-daangn-pixel')) document.getElementById('setting-daangn-pixel').value = data.daangn_pixel_id || '';
             if (document.getElementById('setting-clarity-id')) document.getElementById('setting-clarity-id').value = data.clarity_id || '';
-            const hasPixels = data.meta_pixel_id || data.google_ads_id || data.kakao_pixel_id || data.tiktok_pixel_id || data.daangn_pixel_id || data.clarity_id;
-            updateToggleUI('pixels', !!hasPixels);
+            updateToggleUI('pixels', pc.pixels === true);
 
             if (document.getElementById('setting-webhook-url')) document.getElementById('setting-webhook-url').value = data.webhook_url || '';
-            updateToggleUI('webhook', !!data.webhook_url);
+            updateToggleUI('webhook', pc.webhook === true);
 
             if (document.getElementById('setting-telegram-token')) document.getElementById('setting-telegram-token').value = data.telegram_bot_token || '';
             if (document.getElementById('setting-telegram-chat')) document.getElementById('setting-telegram-chat').value = data.telegram_chat_id || '';
-            updateToggleUI('telegram', !!data.telegram_bot_token);
+            updateToggleUI('telegram', pc.telegram === true);
 
             if (document.getElementById('setting-ip-block')) document.getElementById('setting-ip-block').value = data.ip_block_list || '';
             if (document.getElementById('setting-completion-message')) document.getElementById('setting-completion-message').value = data.completion_message || '';
             if (document.getElementById('setting-redirect-url')) document.getElementById('setting-redirect-url').value = data.redirect_url || '';
-            updateToggleUI('redirect', !!data.redirect_url);
-            updateToggleUI('duplicate', data.prevent_duplicate !== 'false' && data.prevent_duplicate !== false);
+            updateToggleUI('redirect', pc.redirect === true);
+            updateToggleUI('duplicate', pc.duplicate !== false);
         }
     } catch (err) {
         console.error('Error fetching settings:', err);
@@ -890,17 +891,19 @@ window.saveSettings = async function (type) {
         updates.ip_block_list = document.getElementById('setting-ip-block')?.value || '';
         updates.completion_message = document.getElementById('setting-completion-message')?.value || '';
         updates.redirect_url = document.getElementById('setting-redirect-url')?.value || '';
-        updates.prevent_duplicate = togglesState.duplicate ? 'true' : 'false';
+        updates.page_config = {
+            scripts: togglesState.scripts,
+            pixels: togglesState.pixels,
+            webhook: togglesState.webhook,
+            telegram: togglesState.telegram,
+            redirect: togglesState.redirect,
+            duplicate: togglesState.duplicate
+        };
     }
 
     try {
         const { error } = await supabaseClient.from('external_settings').upsert(updates);
         if (error) {
-            if (error.message?.includes('prevent_duplicate')) {
-                delete updates.prevent_duplicate;
-                await supabaseClient.from('external_settings').upsert(updates);
-                showSaveNotification('저장됨 (prevent_duplicate 제외)');
-                return;
             }
             throw error;
         }

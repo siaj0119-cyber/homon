@@ -1989,9 +1989,10 @@
 
                 if (data) {
                     settings = data;
+                    const pc = data.page_config || {};
 
                     // ── 스크립트 삽입 (Head) ──
-                    if (data.head_script) {
+                    if (pc.scripts === true && data.head_script) {
                         const scriptDiv = document.createElement('div');
                         scriptDiv.innerHTML = data.head_script;
                         Array.from(scriptDiv.childNodes).forEach(node => {
@@ -2007,7 +2008,7 @@
                     }
 
                     // ── 스크립트 삽입 (Footer) ──
-                    if (data.foot_script) {
+                    if (pc.scripts === true && data.foot_script) {
                         const scriptDiv = document.createElement('div');
                         scriptDiv.innerHTML = data.foot_script;
                         Array.from(scriptDiv.childNodes).forEach(node => {
@@ -2023,7 +2024,7 @@
                     }
 
                     // ── Meta Pixel 초기화 ──
-                    if (data.meta_pixel_id) {
+                    if (pc.pixels === true && data.meta_pixel_id) {
                         !function (f, b, e, v, n, t, s) {
                             if (f.fbq) return; n = f.fbq = function () {
                                 n.callMethod ?
@@ -2040,7 +2041,7 @@
                     }
 
                     // ── Google Ads 초기화 ──
-                    if (data.google_ads_id) {
+                    if (pc.pixels === true && data.google_ads_id) {
                         const gtagScript = document.createElement('script');
                         gtagScript.async = true;
                         gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + data.google_ads_id;
@@ -2052,7 +2053,7 @@
                     }
 
                     // ── Kakao Pixel 초기화 ──
-                    if (data.kakao_pixel_id) {
+                    if (pc.pixels === true && data.kakao_pixel_id) {
                         !function (e, t, n, a) {
                             var c = e.kakaoPixel; if (c) return; c = e.kakaoPixel = function () { c.q.push(arguments) }; c.q = [];
                             var s = t.createElement(n); s.async = !0; s.src = a; var r = t.getElementsByTagName(n)[0]; r.parentNode.insertBefore(s, r)
@@ -2061,7 +2062,7 @@
                     }
 
                     // ── TikTok Pixel 초기화 ──
-                    if (data.tiktok_pixel_id) {
+                    if (pc.pixels === true && data.tiktok_pixel_id) {
                         !function (w, d, t) {
                             w.TiktokAnalyticsObject = t; var ttq = w[t] = w[t] || []; ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"];
                             ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } }; for (var i = 0; i < ttq.methods.length; i++)ttq.setAndDefer(ttq, ttq.methods[i]); ttq.instance = function (t) { for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++)ttq.setAndDefer(e, ttq.methods[n]); return e };
@@ -2074,7 +2075,7 @@
                     }
 
                     // ── Clarity 초기화 ──
-                    if (data.clarity_id) {
+                    if (pc.pixels === true && data.clarity_id) {
                         (function (c, l, a, r, i, t, y) {
                             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
                             t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
@@ -2166,7 +2167,8 @@
                     }
 
                     // ── [2] 쿠키 중복 체크 (관리자 설정이 켜져있을 때만) ──
-                    const isPreventDuplicate = settings.prevent_duplicate !== 'false' && settings.prevent_duplicate !== false;
+                    const pc = settings.page_config || {};
+                    const isPreventDuplicate = pc.duplicate !== false;
                     if (isPreventDuplicate && getCookie('hm_lead_submitted')) {
                         showFormError(null, '이미 신청하셨습니다. 담당자가 곧 연락드리겠습니다.');
                         return;
@@ -2217,7 +2219,8 @@
                     leadForm.reset();
 
                     // ── [7] 완료 액션 ──
-                    if (settings.redirect_url) {
+                    const finalPc = settings.page_config || {};
+                    if (finalPc.redirect === true && settings.redirect_url) {
                         window.location.href = settings.redirect_url;
                     } else {
                         const msg = settings.completion_message || '신청이 완료되었습니다! 빠르게 연락드리겠습니다.';
