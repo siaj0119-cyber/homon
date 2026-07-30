@@ -54,3 +54,18 @@ CREATE POLICY "Allow all for leads" ON public.leads FOR ALL USING (true);
 
 DROP POLICY IF EXISTS "Allow all for settings" ON public.external_settings;
 CREATE POLICY "Allow all for settings" ON public.external_settings FOR ALL USING (true);
+
+-- 5. 유입(방문자 수) 측정을 위한 'page_views' 테이블 생성
+CREATE TABLE IF NOT EXISTS public.page_views (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  ip_address text,
+  visit_date date DEFAULT current_date,
+  user_agent text,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT page_views_pkey PRIMARY KEY (id),
+  CONSTRAINT page_views_ip_date_key UNIQUE (ip_address, visit_date)
+);
+
+ALTER TABLE public.page_views ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow all for page_views" ON public.page_views;
+CREATE POLICY "Allow all for page_views" ON public.page_views FOR ALL USING (true);

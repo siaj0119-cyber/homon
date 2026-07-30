@@ -18,6 +18,7 @@ let leadsData = [];
 let currentLeadId = null;
 let currentPage = 1;
 let totalCount = 0;
+let totalViews = 0;
 let searchQuery = '';
 let dateFilter = 'all'; // 'today', 'week', 'all', 'custom'
 let customDateStart = null;
@@ -405,20 +406,35 @@ async function fetchLeads() {
             .order('created_at', { ascending: false })
             .range(from, to);
 
+        let viewsQuery = supabaseClient
+            .from('page_views')
+            .select('*', { count: 'exact', head: true });
+
         // Date filter
         const dateRange = getDateRange();
-        if (dateRange.start) query = query.gte('created_at', dateRange.start);
-        if (dateRange.end) query = query.lte('created_at', dateRange.end);
+        if (dateRange.start) {
+            query = query.gte('created_at', dateRange.start);
+            viewsQuery = viewsQuery.gte('created_at', dateRange.start);
+        }
+        if (dateRange.end) {
+            query = query.lte('created_at', dateRange.end);
+            viewsQuery = viewsQuery.lte('created_at', dateRange.end);
+        }
 
         // Search
         if (searchQuery) {
             query = query.or(`customer_name.ilike.%${searchQuery}%,customer_phone.ilike.%${searchQuery}%`);
         }
 
-        const { data, count, error } = await query;
+        const [ { data, count, error }, { count: vCount, error: vError } ] = await Promise.all([
+            query,
+            viewsQuery.catch(() => ({ count: 0, error: null }))
+        ]);
+
         if (error) throw error;
         leadsData = data || [];
         totalCount = count || 0;
+        totalViews = vCount || 0;
         selectedIds.clear();
         renderTable();
         renderPagination();
@@ -546,10 +562,25 @@ function renderPagination() {
 // Stats
 // ============================================
 function updateStats() {
-    const views = totalCount * 15;
-    statViews.textContent = views.toLocaleString();
+    statViews.textContent = totalViews.toLocaleString();
     statLeads.textContent = totalCount.toLocaleString();
-    statConv.textContent = views > 0 ? ((totalCount / views) * 100).toFixed(1) + '%' : '0.0%';
+    statConv.textContent = totalViews > 0 ? ((totalCount / totalViews) * 100).toFixed(1) + '%' : '0.0%';
+}
+
+// ============================================
+// Page Views Reset
+// ============================================
+window.resetViews = async function() {
+    if(!confirm("모든 유입(방문자) 카운트를 0으로 초기화하시겠습니까?")) return;
+    try {
+        const { error } = await supabaseClient.from('page_views').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+        if (error) throw error;
+        alert("방문자 카운트가 초기화되었습니다.");
+        fetchLeads();
+    } catch(e) {
+        console.error(e);
+        alert("초기화 중 오류가 발생했습니다.");
+    }
 }
 
 // ============================================

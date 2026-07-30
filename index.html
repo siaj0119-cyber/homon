@@ -1990,6 +1990,19 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
+            // ── 유입(Page View) 트래킹 (하루 1회 제한) ──
+            const today = new Date().toISOString().split('T')[0];
+            if (getCookie('hm_visited') !== today) {
+                fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'page_view' }),
+                    keepalive: true
+                }).then(() => {
+                    setCookie('hm_visited', today, 1);
+                }).catch(e => console.error('Tracking Error:', e));
+            }
+
             const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             let settings = {};
 

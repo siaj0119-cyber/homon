@@ -36,7 +36,7 @@ export default {
       return new Response(null, { headers: corsHeaders() });
     }
 
-    // GET 요청: 이지랜딩 방식의 동적 HTMLRewriter (미리보기 og:title / og:description 주입)
+    // GET 요청: 이지랜딩 방식의 동적 HTMLRewriter (미리보기 og:title / og:description 및 스크립트/픽셀 주입)
     if (request.method === 'GET') {
       const response = await fetch(request);
       if (!response.headers.get('content-type')?.includes('text/html')) {
@@ -45,7 +45,7 @@ export default {
 
       try {
         const settingsResp = await fetch(
-          `${env.SUPABASE_URL}/rest/v1/external_settings?id=eq.1&select=page_name,og_title,og_description`,
+          `${env.SUPABASE_URL}/rest/v1/external_settings?id=eq.1&select=*`,
           {
             headers: {
               'apikey': env.SUPABASE_KEY,
@@ -59,11 +59,44 @@ export default {
           const settings = settingsArr[0] || {};
           const titleVal = settings.og_title || settings.page_name || '';
           const descVal = settings.og_description || '';
+          const pc = settings.page_config || {};
 
-          return new HTMLRewriter()
+          // 스크립트 및 픽셀 생성
+          let headInject = '';
+          let bodyInject = '';
+
+          // 1. 커스텀 스크립트
+          if (pc.scripts === true) {
+            if (settings.head_script) headInject += `\n${settings.head_script}\n`;
+            if (settings.foot_script) bodyInject += `\n${settings.foot_script}\n`;
+          }
+
+          // 2. 픽셀 코드
+          if (pc.pixels === true) {
+            if (settings.meta_pixel_id) {
+              headInject += `\n<!-- Meta Pixel -->\n<script>\n!function(f,b,e,v,n,t,s)\n{if(f.fbq)return;n=f.fbq=function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\nn.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];\ns.parentNode.insertBefore(t,s)}(window, document,'script',\n'https://connect.facebook.net/en_US/fbevents.js');\nfbq('init', '${settings.meta_pixel_id}');\nfbq('track', 'PageView');\n</script>\n<noscript><img height="1" width="1" style="display:none"\nsrc="https://www.facebook.com/tr?id=${settings.meta_pixel_id}&ev=PageView&noscript=1"\n/></noscript>\n`;
+            }
+            if (settings.google_ads_id) {
+              headInject += `\n<!-- Google Ads -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=${settings.google_ads_id}"></script>\n<script>\nwindow.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', '${settings.google_ads_id}');\n</script>\n`;
+            }
+            if (settings.kakao_pixel_id) {
+              headInject += `\n<!-- Kakao Pixel -->\n<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>\n<script type="text/javascript">\nkakaoPixel('${settings.kakao_pixel_id}').pageView();\n</script>\n`;
+            }
+            if (settings.tiktok_pixel_id) {
+              headInject += `\n<!-- TikTok Pixel -->\n<script>\n!function (w, d, t) {\n  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};\n  ttq.load('${settings.tiktok_pixel_id}');\n  ttq.page();\n}(window, document, 'ttq');\n</script>\n`;
+            }
+            if (settings.daangn_pixel_id) {
+              headInject += `\n<!-- Daangn Pixel -->\n<script src="https://karrot-pixel.kr/js/karrot-pixel.umd.js"></script>\n<script>\nwindow.karrotPixel.init('${settings.daangn_pixel_id}');\nwindow.karrotPixel.track('ViewPage');\n</script>\n`;
+            }
+            if (settings.clarity_id) {
+              headInject += `\n<!-- Clarity -->\n<script type="text/javascript">\n(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "${settings.clarity_id}");\n</script>\n`;
+            }
+          }
+
+          let rewriter = new HTMLRewriter()
             .on('title', {
               element(el) {
-                if (titleVal) el.setText(titleVal);
+                if (titleVal) el.setInnerContent(titleVal);
               },
             })
             .on('meta[property="og:title"]', {
@@ -90,8 +123,25 @@ export default {
               element(el) {
                 if (descVal) el.setAttribute('content', descVal);
               },
-            })
-            .transform(response);
+            });
+
+          if (headInject) {
+            rewriter.on('head', {
+              element(el) {
+                el.append(headInject, { html: true });
+              }
+            });
+          }
+
+          if (bodyInject) {
+            rewriter.on('body', {
+              element(el) {
+                el.append(bodyInject, { html: true });
+              }
+            });
+          }
+
+          return rewriter.transform(response);
         }
       } catch (e) {
         console.error('Worker HTMLRewriter Error:', e);
@@ -136,6 +186,33 @@ export default {
         if (blockedIPs.includes(ip)) {
           return jsonResponse({ error: 'blocked', message: '차단된 IP입니다.' }, 403);
         }
+      }
+      // ── STEP 3-5: 페이지 뷰 트래킹 ──
+      if (data.type === 'page_view') {
+        const userAgent = request.headers.get('user-agent') || '';
+        if (userAgent.toLowerCase().includes('bot') || userAgent.toLowerCase().includes('crawler')) {
+          return jsonResponse({ success: true, ignored: true });
+        }
+        
+        const pvPayload = {
+          ip_address: ip,
+          user_agent: userAgent
+        };
+        const pvResp = await fetch(`${env.SUPABASE_URL}/rest/v1/page_views`, {
+          method: 'POST',
+          headers: {
+            'apikey': env.SUPABASE_KEY,
+            'Authorization': `Bearer ${env.SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=ignore-duplicates'
+          },
+          body: JSON.stringify(pvPayload),
+        });
+        
+        if (!pvResp.ok) {
+          console.error('Page view insert error:', await pvResp.text());
+        }
+        return jsonResponse({ success: true });
       }
 
       // ── STEP 4: 유효성 검사 ──
@@ -193,12 +270,12 @@ export default {
       if (pc.telegram === true && settings.telegram_bot_token && settings.telegram_chat_id) {
         const pageName = settings.page_name || '홈페이지';
         const msg = [
-          `🚨 [${pageName}] 신규 DB 접수`,
+          `🚨 [${pageName}] 신규 DB`,
           '',
-          `👤 이름: ${leadPayload.customer_name}`,
-          `📞 연락처: ${leadPayload.customer_phone}`,
-          `🏢 업종: ${leadPayload.form_data.industry || '-'}`,
-          `💬 문의: ${leadPayload.form_data.question || '-'}`,
+          `1) 이름: ${leadPayload.customer_name}`,
+          `2) 연락처: ${leadPayload.customer_phone}`,
+          `3) 업종: ${leadPayload.form_data.industry || '-'}`,
+          `4) 문의: ${leadPayload.form_data.question || '-'}`,
           '',
           '신속하게 응대해 주세요!',
         ].join('\n');
