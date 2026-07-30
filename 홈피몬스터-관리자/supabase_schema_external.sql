@@ -1,0 +1,2 @@
+-- 이 파일은 홈피몬스터-워커/supabase_setup.sql 파일로 통합되었습니다.
+-- DB 스키마 설정 시 홈피몬스터-워커 폴더의 supabase_setup.sql 파일을 사용해주세요.

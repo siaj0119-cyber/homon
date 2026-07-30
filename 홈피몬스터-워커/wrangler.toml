@@ -1,0 +1,16 @@
+name = "hompi-worker"
+main = "index.js"
+compatibility_date = "2024-07-30"
+
+[vars]
+SUPABASE_URL = "https://ctszrxwezwvisvqkcrzg.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3pyeHdlend2aXN2cWtjcnpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDI2NjEsImV4cCI6MjEwMDk3ODY2MX0.ElX97vgA6rULL_W-SwD87cOvAlTI00gKaVgansTLiXg"
+
+# 배포 방법:
+# 1. npx wrangler login
+# 2. npx wrangler deploy
+#
+# (선택) 보안 강화 — service_role 키 사용:
+# npx wrangler secret put SUPABASE_KEY
+# → Supabase 대시보드 > Settings > API > service_role key 값 입력
+# 이렇게 하면 wrangler.toml의 SUPABASE_KEY 대신 secret이 우선 적용됩니다

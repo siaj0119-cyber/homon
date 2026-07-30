@@ -1,0 +1,153 @@
+/* Base & Resets */
+body {
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar for sleek UI */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #e5e7eb;
+    border-radius: 10px;
+}
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+}
+
+/* Glass Panel for Login */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* iOS Style Toggle Switch */
+.toggle-checkbox:checked {
+    right: 0;
+    border-color: #0064FF;
+}
+.toggle-checkbox:checked + .toggle-label {
+    background-color: #0064FF;
+}
+.toggle-checkbox:checked + .toggle-label::after {
+    transform: translateX(100%);
+    border-color: white;
+}
+.toggle-label {
+    width: 44px;
+    height: 24px;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Sidebar Icon Nav Styles */
+.nav-item {
+    transition: all 0.2s ease;
+}
+.nav-item.active {
+    border-left-color: #0064FF;
+    color: #0064FF;
+    background-color: #eff6ff;
+}
+.nav-item:hover:not(.active) {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.status-new {
+    color: #0064FF;
+    background-color: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+.status-contacted {
+    color: #4b5563;
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+}
+
+/* Modal Transitions */
+#detail-popup {
+    transition: opacity 0.2s ease;
+}
+#detail-popup .popup-content {
+    transition: transform 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+}
+#detail-popup.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+#detail-popup.show .popup-content {
+    transform: scale(1);
+}
+
+/* Table specific styling */
+.table-header th {
+    border-right: none !important;
+}
+#leads-table-body td {
+    border-right: none !important;
+}
+
+/* Inputs & Form Elements */
+.settings-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.settings-input:focus {
+    border-color: #0064FF;
+}
+.settings-btn {
+    width: 100%;
+    height: 40px;
+    background-color: #0064FF;
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+.settings-btn:hover {
+    background-color: #0052cc;
+}
