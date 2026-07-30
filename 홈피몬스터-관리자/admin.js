@@ -935,7 +935,8 @@ function setupAutoSave() {
             input.addEventListener(evtType, () => {
                 clearTimeout(autoSaveTimeout);
                 autoSaveTimeout = setTimeout(() => {
-                    const type = document.getElementById('content-basic').classList.contains('hidden') ? 'other' : 'basic';
+                    const isOther = input.closest('#content-other') !== null;
+                    const type = isOther ? 'other' : 'basic';
                     window.saveSettings(type);
                 }, 800);
             });

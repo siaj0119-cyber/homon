@@ -2001,7 +2001,11 @@
                     const pc = data.page_config || {};
 
                     // ── 미리보기 및 제목 (Page Name & OG Tags) 적용 ──
-                    if (data.page_name) document.title = data.page_name;
+                    if (data.og_title) {
+                        document.title = data.og_title;
+                    } else if (data.page_name) {
+                        document.title = data.page_name;
+                    }
                     
                     const setMeta = (attr, propVal, contentVal) => {
                         if (!contentVal) return;
@@ -2021,6 +2025,7 @@
                     if (data.og_description) {
                         setMeta('property', 'og:description', data.og_description);
                         setMeta('name', 'twitter:description', data.og_description);
+                        setMeta('name', 'description', data.og_description);
                     }
 
                     // ── 스크립트 삽입 (Head) ──

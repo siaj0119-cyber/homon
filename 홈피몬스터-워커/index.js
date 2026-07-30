@@ -36,6 +36,69 @@ export default {
       return new Response(null, { headers: corsHeaders() });
     }
 
+    // GET 요청: 이지랜딩 방식의 동적 HTMLRewriter (미리보기 og:title / og:description 주입)
+    if (request.method === 'GET') {
+      const response = await fetch(request);
+      if (!response.headers.get('content-type')?.includes('text/html')) {
+        return response;
+      }
+
+      try {
+        const settingsResp = await fetch(
+          `${env.SUPABASE_URL}/rest/v1/external_settings?id=eq.1&select=page_name,og_title,og_description`,
+          {
+            headers: {
+              'apikey': env.SUPABASE_KEY,
+              'Authorization': `Bearer ${env.SUPABASE_KEY}`,
+            },
+          }
+        );
+
+        if (settingsResp.ok) {
+          const settingsArr = await settingsResp.json();
+          const settings = settingsArr[0] || {};
+          const titleVal = settings.og_title || settings.page_name || '';
+          const descVal = settings.og_description || '';
+
+          return new HTMLRewriter()
+            .on('title', {
+              element(el) {
+                if (titleVal) el.setText(titleVal);
+              },
+            })
+            .on('meta[property="og:title"]', {
+              element(el) {
+                if (titleVal) el.setAttribute('content', titleVal);
+              },
+            })
+            .on('meta[name="twitter:title"]', {
+              element(el) {
+                if (titleVal) el.setAttribute('content', titleVal);
+              },
+            })
+            .on('meta[property="og:description"]', {
+              element(el) {
+                if (descVal) el.setAttribute('content', descVal);
+              },
+            })
+            .on('meta[name="twitter:description"]', {
+              element(el) {
+                if (descVal) el.setAttribute('content', descVal);
+              },
+            })
+            .on('meta[name="description"]', {
+              element(el) {
+                if (descVal) el.setAttribute('content', descVal);
+              },
+            })
+            .transform(response);
+        }
+      } catch (e) {
+        console.error('Worker HTMLRewriter Error:', e);
+      }
+      return response;
+    }
+
     if (request.method !== 'POST') {
       return jsonResponse({ error: 'Method not allowed' }, 405);
     }
