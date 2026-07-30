@@ -1983,13 +1983,36 @@
                 // 안전한 컬럼만 조회
                 const { data } = await supabaseClient
                     .from('external_settings')
-                    .select('head_script, foot_script, meta_pixel_id, google_ads_id, kakao_pixel_id, tiktok_pixel_id, daangn_pixel_id, clarity_id, completion_message, redirect_url, prevent_duplicate')
+                    .select('page_name, og_title, og_description, head_script, foot_script, meta_pixel_id, google_ads_id, kakao_pixel_id, tiktok_pixel_id, daangn_pixel_id, clarity_id, completion_message, redirect_url, prevent_duplicate, page_config')
                     .eq('id', 1)
                     .single();
 
                 if (data) {
                     settings = data;
                     const pc = data.page_config || {};
+
+                    // ── 미리보기 및 제목 (Page Name & OG Tags) 적용 ──
+                    if (data.page_name) document.title = data.page_name;
+                    
+                    const setMeta = (attr, propVal, contentVal) => {
+                        if (!contentVal) return;
+                        let el = document.querySelector(`meta[${attr}="${propVal}"]`);
+                        if (!el) {
+                            el = document.createElement('meta');
+                            el.setAttribute(attr, propVal);
+                            document.head.appendChild(el);
+                        }
+                        el.setAttribute('content', contentVal);
+                    };
+
+                    if (data.og_title) {
+                        setMeta('property', 'og:title', data.og_title);
+                        setMeta('name', 'twitter:title', data.og_title);
+                    }
+                    if (data.og_description) {
+                        setMeta('property', 'og:description', data.og_description);
+                        setMeta('name', 'twitter:description', data.og_description);
+                    }
 
                     // ── 스크립트 삽입 (Head) ──
                     if (pc.scripts === true && data.head_script) {
