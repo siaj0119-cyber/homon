@@ -891,20 +891,22 @@ window.saveSettings = async function (type) {
         updates.ip_block_list = document.getElementById('setting-ip-block')?.value || '';
         updates.completion_message = document.getElementById('setting-completion-message')?.value || '';
         updates.redirect_url = document.getElementById('setting-redirect-url')?.value || '';
-        updates.page_config = {
-            scripts: togglesState.scripts,
-            pixels: togglesState.pixels,
-            webhook: togglesState.webhook,
-            telegram: togglesState.telegram,
-            redirect: togglesState.redirect,
-            duplicate: togglesState.duplicate
-        };
     }
+
+    // JSONB 토글 상태는 항상 최신화
+    updates.page_config = {
+        scripts: togglesState.scripts,
+        pixels: togglesState.pixels,
+        webhook: togglesState.webhook,
+        telegram: togglesState.telegram,
+        redirect: togglesState.redirect,
+        duplicate: togglesState.duplicate
+    };
+    updates.updated_at = new Date().toISOString();
 
     try {
         const { error } = await supabaseClient.from('external_settings').upsert(updates);
         if (error) {
-            }
             throw error;
         }
         showSaveNotification('✓ 저장되었습니다');
