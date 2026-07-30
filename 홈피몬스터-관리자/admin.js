@@ -461,6 +461,15 @@ function useMockData() {
     updateStats();
 }
 
+function getStatusBadgeHtml(status) {
+    const s = status || '신규';
+    const isRed = (s === '부재중' || s === '부재' || s === '부정');
+    if (isRed) {
+        return `<span class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold text-[#dc2626] bg-[#fef2f2] border border-red-200">${s}</span>`;
+    }
+    return `<span class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold text-[#2563eb] bg-[#eff6ff] border border-blue-200">${s}</span>`;
+}
+
 // ============================================
 // Table Rendering
 // ============================================
@@ -478,10 +487,7 @@ function renderTable() {
         const dateStr = d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'numeric', day: 'numeric' });
         const timeStr = d.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-        const isNew = !lead.status || lead.status === '신규' || lead.status === '신규접수';
-        const statusBadge = isNew
-            ? `<span class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold text-[#2563eb] bg-[#eff6ff]">신규</span>`
-            : `<span class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold text-[#4b5563] bg-[#f3f4f6]">${lead.status}</span>`;
+        const statusBadge = getStatusBadgeHtml(lead.status);
 
         const isChecked = selectedIds.has(lead.id);
 
@@ -734,27 +740,47 @@ function openDetailPopup(id) {
 
     // Badge
     const badge = document.getElementById('popup-badge');
-    if (lead.status === '신규접수') {
-        badge.textContent = '신규접수';
-        badge.className = 'px-3 py-1 text-xs font-bold text-primary bg-[#eff6ff] border border-blue-200 rounded-full';
-    } else {
-        badge.textContent = lead.status || '상담완료';
-        badge.className = 'px-3 py-1 text-xs font-bold text-gray-600 bg-gray-100 border border-gray-200 rounded-full';
-    }
+    const isRedStatus = (status) => (status === '부재중' || status === '부재' || status === '부정');
+    const updatePopupBadge = (s) => {
+        const st = s || '신규';
+        badge.textContent = st;
+        if (isRedStatus(st)) {
+            badge.className = 'px-3 py-1 text-xs font-semibold text-[#dc2626] bg-[#fef2f2] border border-red-200 rounded-full';
+        } else {
+            badge.className = 'px-3 py-1 text-xs font-semibold text-[#2563eb] bg-[#eff6ff] border border-blue-200 rounded-full';
+        }
+    };
+    updatePopupBadge(lead.status);
 
     document.getElementById('popup-phone').textContent = lead.customer_phone || '-';
+    const phoneLink = document.getElementById('popup-phone-link');
+    if (phoneLink && lead.customer_phone) {
+        phoneLink.href = `tel:${lead.customer_phone.replace(/[^0-9]/g, '')}`;
+    }
+
     document.getElementById('popup-ip').textContent = lead.ip_address || '-';
     document.getElementById('popup-date').textContent = d.toLocaleDateString('ko-KR');
     document.getElementById('popup-time').textContent = d.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false });
     document.getElementById('popup-manager').textContent = lead.manager || '미정';
 
-    // Manager input
+    // Manager input auto-save
     const managerInput = document.getElementById('popup-manager-input');
-    if (managerInput) managerInput.value = lead.manager || '';
+    if (managerInput) {
+        managerInput.value = lead.manager || '';
+        managerInput.onchange = async (e) => {
+            const newManager = e.target.value.trim();
+            if (supabaseClient) {
+                await supabaseClient.from('leads').update({ manager: newManager }).eq('id', currentLeadId);
+            }
+            lead.manager = newManager;
+            document.getElementById('popup-manager').textContent = newManager || '미정';
+            renderTable();
+        };
+    }
 
-    // Status select
+    // Status select auto-save
     const statusSelect = document.getElementById('popup-status-select');
-    statusSelect.value = lead.status || '신규접수';
+    statusSelect.value = lead.status || '신규';
 
     statusSelect.onchange = async (e) => {
         const newStatus = e.target.value;
@@ -763,13 +789,7 @@ function openDetailPopup(id) {
         }
         lead.status = newStatus;
         renderTable();
-        if (newStatus === '신규접수') {
-            badge.textContent = '신규접수';
-            badge.className = 'px-3 py-1 text-xs font-bold text-primary bg-[#eff6ff] border border-blue-200 rounded-full';
-        } else {
-            badge.textContent = newStatus;
-            badge.className = 'px-3 py-1 text-xs font-bold text-gray-600 bg-gray-100 border border-gray-200 rounded-full';
-        }
+        updatePopupBadge(newStatus);
     };
 
     // form_data display

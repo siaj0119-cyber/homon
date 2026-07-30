@@ -78,7 +78,8 @@
 
         <!-- Right: External Link Icon -->
         <div class="flex items-center gap-3">
-            <span id="save-notification" class="text-[13px] font-medium text-[#10b981] opacity-0 transition-opacity duration-300">✓ 저장 완료</span>
+            <span id="save-notification"
+                class="text-[13px] font-medium text-[#10b981] opacity-0 transition-opacity duration-300">✓ 저장 완료</span>
             <a href="https://homon.easyl.net/" target="_blank" title="사이트 바로가기"
                 class="p-2 text-gray-400 hover:text-primary transition-colors rounded-lg hover:bg-gray-100">
                 <i data-lucide="external-link" class="w-5 h-5"></i>
@@ -248,7 +249,7 @@
                                     placeholder="ID를 입력하세요">
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="w-12 text-[11px] text-gray-500 font-bold shrink-0"></span>
+                                <span class="w-12 text-[11px] text-gray-500 font-bold shrink-0">클래리티</span>
                                 <input type="text" id="setting-clarity-id"
                                     class="flex-1 p-2 border border-gray-200 rounded-lg text-xs outline-none focus:border-primary bg-white"
                                     placeholder="ID를 입력하세요">
@@ -511,9 +512,6 @@
                             <button id="btn-bulk-delete" onclick="bulkDelete()"
                                 class="h-[40px] px-3 bg-white border border-gray-200 text-gray-700 rounded-lg text-[13px] font-bold flex items-center gap-1.5 hover:bg-gray-50 transition-colors"><i
                                     data-lucide="trash-2" class="w-4 h-4"></i>선택 삭제</button>
-                            <button onclick="resetViews()"
-                                class="h-[40px] px-3 bg-white border border-red-200 text-red-500 rounded-lg text-[13px] font-bold flex items-center gap-1.5 hover:bg-red-50 transition-colors"><i
-                                    data-lucide="rotate-ccw" class="w-4 h-4"></i>방문자 초기화</button>
                             <button onclick="triggerExcelUpload()"
                                 class="h-[40px] px-3 bg-[#10b981] border border-[#10b981] text-white rounded-lg text-[13px] font-bold flex items-center gap-1.5 hover:bg-[#059669] hover:border-[#059669] transition-colors"><i
                                     data-lucide="upload" class="w-4 h-4"></i>엑셀 업로드</button>
@@ -557,8 +555,7 @@
                             </thead>
                             <tbody id="leads-table-body">
                                 <tr>
-                                    <td colspan="11"
-                                        class="py-28 text-center text-gray-400 text-[15px] font-medium">
+                                    <td colspan="11" class="py-28 text-center text-gray-400 text-[15px] font-medium">
                                         데이터가 없습니다.</td>
                                 </tr>
                             </tbody>
@@ -591,66 +588,67 @@
                 <!-- Left Pane -->
                 <div
                     class="w-[320px] bg-white border-r border-gray-100 flex flex-col flex-shrink-0 p-6 overflow-y-auto custom-scrollbar">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-black text-gray-900" id="popup-name">이름님</h3>
+                    <div class="flex items-center justify-between mb-5">
+                        <h3 class="text-xl font-bold text-gray-900" id="popup-name">이름님</h3>
                         <span id="popup-badge"
-                            class="px-3 py-1 text-xs font-bold text-primary bg-[#eff6ff] border border-blue-200 rounded-full">신규</span>
+                            class="px-3 py-1 text-xs font-semibold text-[#2563eb] bg-[#eff6ff] border border-blue-200 rounded-full">신규</span>
                     </div>
 
-                    <div class="border border-gray-200 rounded-xl p-4 mb-6 relative shadow-sm overflow-hidden group">
-                        <p class="text-[10px] text-gray-400 mb-1 font-bold">전화번호</p>
-                        <p class="text-xl font-black text-gray-800 tracking-tight" id="popup-phone">010-0000-0000</p>
-                        <a href="#"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#10b981] text-white flex items-center justify-center shadow-md shadow-green-200 hover:scale-105 transition-transform">
+                    <div class="border border-gray-150 rounded-xl p-4 mb-5 relative overflow-hidden bg-white">
+                        <p class="text-xs text-gray-400 mb-1 font-medium">전화번호</p>
+                        <p class="text-lg font-bold text-gray-900 tracking-tight" id="popup-phone">010-0000-0000</p>
+                        <a id="popup-phone-link" href="#"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#16a34a] text-white flex items-center justify-center hover:bg-[#15803d] transition-colors">
                             <i data-lucide="phone" class="w-4 h-4 fill-current"></i>
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="grid grid-cols-2 gap-4 mb-6 text-left">
                         <div>
-                            <p class="text-[10px] text-gray-400 font-bold mb-1">IP 주소</p>
-                            <p class="text-xs font-bold text-gray-800" id="popup-ip">-</p>
+                            <p class="text-xs text-gray-400 font-medium mb-1">IP 주소</p>
+                            <p class="text-xs font-semibold text-gray-800" id="popup-ip">-</p>
                         </div>
                         <div>
-                            <p class="text-[10px] text-gray-400 font-bold mb-1">담당자</p>
-                            <p class="text-xs font-bold text-gray-800" id="popup-manager">미정</p>
+                            <p class="text-xs text-gray-400 font-medium mb-1">담당자</p>
+                            <p class="text-xs font-semibold text-gray-800" id="popup-manager">미정</p>
                         </div>
                         <div>
-                            <p class="text-[10px] text-gray-400 font-bold mb-1">유입 날짜</p>
-                            <p class="text-xs font-bold text-gray-800" id="popup-date">-</p>
+                            <p class="text-xs text-gray-400 font-medium mb-1">유입 날짜</p>
+                            <p class="text-xs font-semibold text-gray-800" id="popup-date">-</p>
                         </div>
                         <div>
-                            <p class="text-[10px] text-gray-400 font-bold mb-1">유입 시간</p>
-                            <p class="text-xs font-bold text-gray-800" id="popup-time">-</p>
+                            <p class="text-xs text-gray-400 font-medium mb-1">유입 시간</p>
+                            <p class="text-xs font-semibold text-gray-800" id="popup-time">-</p>
                         </div>
                     </div>
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-[11px] font-bold text-gray-600 mb-1.5">상담 상태 변경</label>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1.5">상담 상태 변경</label>
                             <div class="relative">
                                 <select id="popup-status-select"
-                                    class="w-full appearance-none border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-bold text-gray-800 outline-none focus:border-primary bg-white">
-                                    <option value="신규접수">신규접수</option>
+                                    class="w-full appearance-none border border-gray-200 rounded-lg px-3 py-2 text-xs font-medium text-gray-800 outline-none focus:border-primary bg-white">
+                                    <option value="신규">신규</option>
                                     <option value="상담중">상담중</option>
-                                    <option value="상담완료">상담완료</option>
-                                    <option value="부재">부재</option>
+                                    <option value="부재중">부재중</option>
+                                    <option value="부정">부정</option>
+                                    <option value="긍정">긍정</option>
                                 </select>
                                 <i data-lucide="chevron-down"
                                     class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold text-gray-600 mb-1.5">담당자 변경</label>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1.5">담당자 변경</label>
                             <input type="text" id="popup-manager-input"
-                                class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-bold text-gray-800 outline-none focus:border-primary bg-white"
+                                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-xs font-medium text-gray-800 outline-none focus:border-primary bg-white"
                                 placeholder="담당자 이름 입력">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold text-gray-600 mb-1.5">마케팅 활용 동의</label>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1.5">마케팅 활용 동의</label>
                             <div class="relative">
                                 <select
-                                    class="w-full appearance-none border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-bold text-gray-800 outline-none focus:border-primary bg-white">
+                                    class="w-full appearance-none border border-gray-200 rounded-lg px-3 py-2 text-xs font-medium text-gray-800 outline-none focus:border-primary bg-white">
                                     <option>동의함</option>
                                     <option>동의하지 않음</option>
                                 </select>
@@ -658,12 +656,6 @@
                                     class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="mt-auto pt-6">
-                        <button id="btn-delete"
-                            class="w-full py-2.5 border border-red-200 text-red-500 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors">이
-                            DB 삭제하기</button>
                     </div>
                 </div>
 
@@ -697,7 +689,7 @@
                         <!-- AI Summary Mock -->
                         <div class="bg-purple-50/50 border border-purple-100 rounded-xl p-4 mb-6 shadow-sm">
                             <h4 class="text-xs font-black text-purple-600 flex items-center gap-1.5 mb-2">
-                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> AI 요약
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 문의 내용
                             </h4>
                             <p class="text-[13px] text-gray-700 leading-relaxed font-medium" id="popup-question">고객센터로
                                 문의해

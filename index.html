@@ -1652,6 +1652,45 @@
                                 class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black outline-none transition-all placeholder-stone-400 font-medium resize-none"
                                 placeholder="문의하실 내용을 자유롭게 적어주세요."></textarea>
                         </div>
+                        <!-- 개인정보 동의 (3종 세트, 접힘 기본) -->
+                        <div class="mt-4 pt-3 border-t border-stone-200/60">
+                            <div class="flex items-center justify-between cursor-pointer py-1 select-none" onclick="toggleTermsAccordion(event)">
+                                <label class="flex items-center gap-2 text-xs font-bold text-stone-700 cursor-pointer" onclick="event.stopPropagation()">
+                                    <input type="checkbox" id="terms-all" checked onchange="toggleAllTerms(this.checked)" class="w-4 h-4 rounded text-black focus:ring-black cursor-pointer">
+                                    <span>[전체 동의] 개인정보 취급 방침</span>
+                                </label>
+                                <button type="button" class="p-1 text-stone-400 hover:text-stone-600 focus:outline-none" aria-label="약관 펼치기">
+                                    <svg id="terms-arrow-icon" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div id="terms-sub-list" class="hidden pl-6 pt-2.5 space-y-2 text-xs text-stone-500">
+                                <div class="flex items-center justify-between">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="terms-service" checked onchange="updateAllTermsState()" class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
+                                        <span><strong class="text-stone-700 font-bold">[필수]</strong> 이용약관 동의</span>
+                                    </label>
+                                    <button type="button" onclick="openLegalModal('terms')" class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="terms-privacy" checked onchange="updateAllTermsState()" class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
+                                        <span><strong class="text-stone-700 font-bold">[필수]</strong> 개인정보 수집 동의</span>
+                                    </label>
+                                    <button type="button" onclick="openLegalModal('privacy')" class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="terms-marketing" checked onchange="updateAllTermsState()" class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
+                                        <span><strong class="text-stone-400 font-normal">[선택]</strong> 마케팅 수신 동의</span>
+                                    </label>
+                                    <button type="button" onclick="openLegalModal('marketing')" class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <p id="form-error-msg"
                             class="text-red-500 text-xs font-bold mt-2 hidden bg-red-50 p-3 rounded-lg border border-red-200 flex items-center gap-1.5">
                             <span>⚠️</span> <span id="form-error-text"></span>
@@ -1704,6 +1743,23 @@
             </p>
             <button onclick="closeModal()"
                 class="w-full bg-black text-white font-bold py-3 rounded-xl hover:bg-stone-800 transition-colors">
+                확인
+            </button>
+        </div>
+    </div>
+
+    <!-- 약관 상세 보기 모달 -->
+    <div id="legal-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-[100000] opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-95 transition-transform duration-300 max-h-[80vh] flex flex-col">
+            <div class="flex items-center justify-between mb-4 border-b border-stone-100 pb-3">
+                <h3 id="legal-modal-title" class="text-lg font-bold text-stone-900">약관 상세</h3>
+                <button type="button" onclick="closeLegalModal()" class="text-stone-400 hover:text-stone-600 p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="legal-modal-body" class="text-xs text-stone-600 space-y-3 overflow-y-auto pr-2 leading-relaxed flex-1">
+            </div>
+            <button type="button" onclick="closeLegalModal()" class="w-full bg-black text-white font-bold py-2.5 rounded-xl hover:bg-stone-800 transition-colors text-sm mt-4">
                 확인
             </button>
         </div>
@@ -1788,6 +1844,56 @@
         }
         function closeModal() {
             document.getElementById('custom-modal').classList.remove('show');
+        }
+
+        // ── 개인정보 약관 아코디언 및 모달 로직 ──
+        function toggleTermsAccordion(e) {
+            const list = document.getElementById('terms-sub-list');
+            const icon = document.getElementById('terms-arrow-icon');
+            if (list && icon) {
+                list.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            }
+        }
+
+        function toggleAllTerms(checked) {
+            document.querySelectorAll('.sub-term-check').forEach(cb => cb.checked = checked);
+        }
+
+        function updateAllTermsState() {
+            const allSub = document.querySelectorAll('.sub-term-check');
+            const allChecked = Array.from(allSub).every(cb => cb.checked);
+            const mainCheck = document.getElementById('terms-all');
+            if (mainCheck) mainCheck.checked = allChecked;
+        }
+
+        const LEGAL_TEXTS = {
+            terms: {
+                title: '서비스 이용약관',
+                content: `<strong>제1조 (목적)</strong><br>본 약관은 홈피몬스터가 제공하는 상담 및 웹사이트 제작 관련 서비스의 이용조건 및 절차를 규정함을 목적으로 합니다.<br><br><strong>제2조 (서비스의 제공)</strong><br>회사는 이용자에게 맞춤형 홈페이지 제작 상담, 견적 안내 및 관련 부가 서비스를 제공합니다.<br><br><strong>제3조 (이용자의 의무)</strong><br>이용자는 상담 신청 시 허위 정보를 입력해서는 안 되며, 타인의 명의를 도용할 수 없습니다.`
+            },
+            privacy: {
+                title: '개인정보 수집 및 이용 동의',
+                content: `<strong>1. 수집하는 개인정보 항목</strong><br>- 필수항목: 이름(담당자명), 연락처(휴대폰 번호)<br>- 선택항목: 업종, 궁금한 점 내용<br><br><strong>2. 개인정보의 수집 및 이용 목적</strong><br>- 홈페이지 제작 관련 상담 제공 및 견적 안내<br>- 서비스 관련 고객 문의 응대<br><br><strong>3. 개인정보의 보유 및 이용 기간</strong><br>- 원칙적으로 목적 달성 후 지체 없이 파기합니다. 단, 관계 법령에 따라 보존할 필요가 있는 경우 관련 법령이 정한 기간 동안 보관합니다.`
+            },
+            marketing: {
+                title: '마케팅 정보 수신 동의 (선택)',
+                content: `홈피몬스터에서 제공하는 신규 이벤트, 할인 혜택, 유용한 마케팅 정보 및 프로모션 소식을 전화, SMS, 카카오톡 등으로 안내받는 것에 동의합니다.<br><br>* 동의하지 않으셔도 기본 상담 서비스 이용에는 제한이 없습니다.`
+            }
+        };
+
+        function openLegalModal(type) {
+            const info = LEGAL_TEXTS[type];
+            if (!info) return;
+            document.getElementById('legal-modal-title').innerText = info.title;
+            document.getElementById('legal-modal-body').innerHTML = info.content;
+            const modal = document.getElementById('legal-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeLegalModal() {
+            const modal = document.getElementById('legal-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
         }
 
         // Close modal on outside click
@@ -2233,6 +2339,12 @@
                     }
                     if (!isValidPhone(phone)) {
                         showFormError(phoneInput, '올바른 휴대폰 번호를 입력해 주세요.');
+                        return;
+                    }
+
+                    // 약관 동의 검사
+                    if (!document.getElementById('terms-service').checked || !document.getElementById('terms-privacy').checked) {
+                        showFormError(null, '필수 개인정보 이용약관에 동의해 주세요.');
                         return;
                     }
 
