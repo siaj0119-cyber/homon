@@ -471,7 +471,7 @@ function renderTable() {
         return;
     }
 
-    const startNo = totalCount - (currentPage - 1) * CONFIG.PAGE_SIZE;
+    const startNo = (currentPage - 1) * CONFIG.PAGE_SIZE + 1;
 
     leadsData.forEach((lead, index) => {
         const d = new Date(lead.created_at);
@@ -493,7 +493,7 @@ function renderTable() {
 
         tr.innerHTML = `
             <td class="py-3 text-center align-middle"><input type="checkbox" class="row-checkbox w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer align-middle" data-id="${lead.id}" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleRowSelect('${lead.id}', this.checked)"></td>
-            <td class="py-3 text-center align-middle"><span class="inline-flex items-center justify-center px-2 py-0.5 bg-[#f1f5f9] text-gray-700 font-bold rounded text-xs min-w-[24px]">${startNo - index}</span></td>
+            <td class="py-3 text-center align-middle"><span class="inline-flex items-center justify-center px-2 py-0.5 bg-[#f1f5f9] text-gray-700 font-bold rounded text-xs min-w-[24px]">${startNo + index}</span></td>
             <td class="py-3 text-center align-middle text-gray-500 font-normal">${lead.ip_address || '-'}</td>
             <td class="py-3 text-center align-middle"><span class="inline-block px-2 py-0.5 bg-[#f1f5f9] text-gray-600 font-medium rounded text-[11px]">${lead.platform || '기타'}</span></td>
             <td class="py-3 text-center align-middle text-gray-500 font-normal">${dateStr}</td>
