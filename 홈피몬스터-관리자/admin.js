@@ -909,7 +909,7 @@ window.saveSettings = async function (type) {
         if (error) {
             throw error;
         }
-        showSaveNotification('✓ 저장되었습니다');
+        showSaveNotification('✓ 저장 완료');
     } catch (err) {
         console.error('Error saving settings:', err);
         showSaveNotification('❌ 저장 실패');
