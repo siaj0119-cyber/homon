@@ -428,7 +428,7 @@ async function fetchLeads() {
 
         const [ { data, count, error }, { count: vCount, error: vError } ] = await Promise.all([
             query,
-            viewsQuery.catch(() => ({ count: 0, error: null }))
+            viewsQuery
         ]);
 
         if (error) throw error;
