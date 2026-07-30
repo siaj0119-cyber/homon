@@ -869,41 +869,27 @@ window.saveSettings = async function (type) {
     let updates = { id: 1 };
 
     if (type === 'basic') {
-        updates.page_name = document.getElementById('setting-page-name').value;
+        updates.page_name = document.getElementById('setting-page-name')?.value || '';
         if (document.getElementById('top-page-name-display') && updates.page_name) {
             document.getElementById('top-page-name-display').textContent = updates.page_name;
         }
-        updates.og_title = document.getElementById('setting-og-title').value;
-        updates.og_description = document.getElementById('setting-og-desc').value;
-        updates.head_script = togglesState.scripts ? document.getElementById('setting-head-script').value : '';
-        updates.foot_script = togglesState.scripts ? document.getElementById('setting-foot-script').value : '';
-        if (togglesState.pixels) {
-            updates.meta_pixel_id = document.getElementById('setting-meta-pixel').value;
-            updates.google_ads_id = document.getElementById('setting-google-ads').value;
-            updates.kakao_pixel_id = document.getElementById('setting-kakao-pixel').value;
-            updates.tiktok_pixel_id = document.getElementById('setting-tiktok-pixel').value;
-            updates.daangn_pixel_id = document.getElementById('setting-daangn-pixel').value;
-            updates.clarity_id = document.getElementById('setting-clarity-id').value;
-        } else {
-            updates.meta_pixel_id = '';
-            updates.google_ads_id = '';
-            updates.kakao_pixel_id = '';
-            updates.tiktok_pixel_id = '';
-            updates.daangn_pixel_id = '';
-            updates.clarity_id = '';
-        }
-        updates.webhook_url = togglesState.webhook ? document.getElementById('setting-webhook-url').value : '';
-        if (togglesState.telegram) {
-            updates.telegram_bot_token = document.getElementById('setting-telegram-token').value;
-            updates.telegram_chat_id = document.getElementById('setting-telegram-chat').value;
-        } else {
-            updates.telegram_bot_token = '';
-            updates.telegram_chat_id = '';
-        }
+        updates.og_title = document.getElementById('setting-og-title')?.value || '';
+        updates.og_description = document.getElementById('setting-og-desc')?.value || '';
+        updates.head_script = document.getElementById('setting-head-script')?.value || '';
+        updates.foot_script = document.getElementById('setting-foot-script')?.value || '';
+        updates.meta_pixel_id = document.getElementById('setting-meta-pixel')?.value || '';
+        updates.google_ads_id = document.getElementById('setting-google-ads')?.value || '';
+        updates.kakao_pixel_id = document.getElementById('setting-kakao-pixel')?.value || '';
+        updates.tiktok_pixel_id = document.getElementById('setting-tiktok-pixel')?.value || '';
+        updates.daangn_pixel_id = document.getElementById('setting-daangn-pixel')?.value || '';
+        updates.clarity_id = document.getElementById('setting-clarity-id')?.value || '';
+        updates.webhook_url = document.getElementById('setting-webhook-url')?.value || '';
+        updates.telegram_bot_token = document.getElementById('setting-telegram-token')?.value || '';
+        updates.telegram_chat_id = document.getElementById('setting-telegram-chat')?.value || '';
     } else if (type === 'other') {
-        updates.ip_block_list = document.getElementById('setting-ip-block').value;
-        updates.completion_message = !togglesState.redirect ? document.getElementById('setting-completion-message').value : '';
-        updates.redirect_url = togglesState.redirect ? document.getElementById('setting-redirect-url').value : '';
+        updates.ip_block_list = document.getElementById('setting-ip-block')?.value || '';
+        updates.completion_message = document.getElementById('setting-completion-message')?.value || '';
+        updates.redirect_url = document.getElementById('setting-redirect-url')?.value || '';
         updates.prevent_duplicate = togglesState.duplicate ? 'true' : 'false';
     }
 
@@ -921,7 +907,7 @@ window.saveSettings = async function (type) {
         showSaveNotification('✓ 저장되었습니다');
     } catch (err) {
         console.error('Error saving settings:', err);
-        alert('저장 실패: ' + err.message);
+        showSaveNotification('❌ 저장 실패');
     }
 };
 
@@ -938,14 +924,16 @@ function showSaveNotification(msg) {
 // Auto-save logic
 let autoSaveTimeout = null;
 function setupAutoSave() {
-    const inputs = document.querySelectorAll('#settings-panel input:not([type="checkbox"]), #settings-panel textarea, #settings-panel select');
+    const inputs = document.querySelectorAll('#settings-panel input, #settings-panel textarea, #settings-panel select');
     inputs.forEach(input => {
-        input.addEventListener('input', () => {
-            clearTimeout(autoSaveTimeout);
-            autoSaveTimeout = setTimeout(() => {
-                const type = document.getElementById('content-basic').classList.contains('hidden') ? 'other' : 'basic';
-                window.saveSettings(type);
-            }, 1000);
+        ['input', 'change'].forEach(evtType => {
+            input.addEventListener(evtType, () => {
+                clearTimeout(autoSaveTimeout);
+                autoSaveTimeout = setTimeout(() => {
+                    const type = document.getElementById('content-basic').classList.contains('hidden') ? 'other' : 'basic';
+                    window.saveSettings(type);
+                }, 800);
+            });
         });
     });
 }
