@@ -2368,6 +2368,7 @@
                         customer_phone: phone,
                         industry: document.getElementById('form-industry')?.value || '',
                         question: document.getElementById('form-question')?.value || '',
+                        marketing_agree: document.getElementById('terms-marketing')?.checked || false
                     };
 
                     fetch(WORKER_URL, {

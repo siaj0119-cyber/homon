@@ -235,8 +235,9 @@ export default {
         form_data: {
           industry: data.industry || '',
           question: data.question || '',
+          marketing_agree: data.marketing_agree === true,
         },
-        status: '신규접수',
+        status: '신규',
         platform: data.platform || '직접유입',
         ip_address: ip,
       };

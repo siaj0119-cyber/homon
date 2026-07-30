@@ -462,12 +462,13 @@ function useMockData() {
 }
 
 function getStatusBadgeHtml(status) {
-    const s = status || '신규';
+    let s = status || '신규';
+    if (s === '신규접수') s = '신규';
     const isRed = (s === '부재중' || s === '부재' || s === '부정');
     if (isRed) {
-        return `<span class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold text-[#dc2626] bg-[#fef2f2] border border-red-200">${s}</span>`;
+        return `<span class="inline-flex items-center justify-center px-2.5 h-6 rounded-md text-[11px] font-bold text-[#dc2626] bg-[#fef2f2] border border-red-200 min-w-[54px]">${s}</span>`;
     }
-    return `<span class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold text-[#2563eb] bg-[#eff6ff] border border-blue-200">${s}</span>`;
+    return `<span class="inline-flex items-center justify-center px-2.5 h-6 rounded-md text-[11px] font-bold text-[#2563eb] bg-[#eff6ff] border border-blue-200 min-w-[54px]">${s}</span>`;
 }
 
 // ============================================
@@ -501,13 +502,13 @@ function renderTable() {
             <td class="py-3 text-center align-middle"><input type="checkbox" class="row-checkbox w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer align-middle" data-id="${lead.id}" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleRowSelect('${lead.id}', this.checked)"></td>
             <td class="py-3 text-center align-middle"><span class="inline-flex items-center justify-center px-2 py-0.5 bg-[#f1f5f9] text-gray-700 font-bold rounded text-xs min-w-[24px]">${startNo + index}</span></td>
             <td class="py-3 text-center align-middle text-gray-500 font-normal">${lead.ip_address || '-'}</td>
-            <td class="py-3 text-center align-middle"><span class="inline-block px-2 py-0.5 bg-[#f1f5f9] text-gray-600 font-medium rounded text-[11px]">${lead.platform || '기타'}</span></td>
+            <td class="py-3 text-center align-middle"><span class="inline-flex items-center justify-center px-2.5 h-6 bg-[#f1f5f9] text-gray-600 font-medium rounded text-[11px] min-w-[54px]">${lead.platform || '기타'}</span></td>
             <td class="py-3 text-center align-middle text-gray-500 font-normal">${dateStr}</td>
             <td class="py-3 text-center align-middle text-gray-500 font-normal">${timeStr}</td>
             <td class="py-3 text-center align-middle text-gray-900 font-medium">${lead.customer_name || '-'}</td>
             <td class="py-3 text-center align-middle text-gray-600 font-normal">${lead.customer_phone || '-'}</td>
             <td class="py-3 text-center align-middle">${statusBadge}</td>
-            <td class="py-3 text-center align-middle"><span class="inline-block px-2.5 py-1 bg-[#f1f5f9] text-gray-500 text-[11px] font-semibold rounded-md">${lead.manager || '미정'}</span></td>
+            <td class="py-3 text-center align-middle"><span class="inline-flex items-center justify-center px-2.5 h-6 bg-[#f1f5f9] text-gray-500 text-[11px] font-semibold rounded-md min-w-[54px]">${lead.manager || '미정'}</span></td>
             <td class="py-3 text-center align-middle"><button class="px-3 py-1 bg-white border border-gray-200 text-gray-700 rounded-lg text-[11px] font-medium hover:bg-gray-50 transition-colors shadow-2xs" onclick="event.stopPropagation(); openDetailPopup('${lead.id}')">상세 보기</button></td>
         `;
         tableBody.appendChild(tr);
@@ -742,7 +743,8 @@ function openDetailPopup(id) {
     const badge = document.getElementById('popup-badge');
     const isRedStatus = (status) => (status === '부재중' || status === '부재' || status === '부정');
     const updatePopupBadge = (s) => {
-        const st = s || '신규';
+        let st = s || '신규';
+        if (st === '신규접수') st = '신규';
         badge.textContent = st;
         if (isRedStatus(st)) {
             badge.className = 'px-3 py-1 text-xs font-semibold text-[#dc2626] bg-[#fef2f2] border border-red-200 rounded-full';
@@ -803,8 +805,41 @@ function openDetailPopup(id) {
         platformEl.textContent = lead.platform || '기타';
     }
 
+    // Marketing Select
+    const marketingSelect = document.getElementById('popup-marketing-select');
+    if (marketingSelect) {
+        const isAgreed = lead.form_data?.marketing_agree;
+        marketingSelect.value = isAgreed === true ? 'true' : 'false';
+    }
+
     // Memo
-    document.getElementById('popup-memo-input').value = lead.memo || '';
+    const memoInput = document.getElementById('popup-memo-input');
+    memoInput.value = lead.memo || '';
+    
+    // Auto-save memo
+    let memoTimeout = null;
+    memoInput.oninput = (e) => {
+        clearTimeout(memoTimeout);
+        memoTimeout = setTimeout(async () => {
+            const newMemo = e.target.value;
+            if (supabaseClient) {
+                await supabaseClient.from('leads').update({ memo: newMemo }).eq('id', currentLeadId);
+            }
+            lead.memo = newMemo;
+            
+            // Show subtle feedback
+            const btn = document.getElementById('btn-save-memo');
+            if (btn) {
+                const originalText = btn.textContent;
+                btn.textContent = '자동 저장됨';
+                btn.classList.add('bg-green-500');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('bg-green-500');
+                }, 1500);
+            }
+        }, 1000);
+    };
 
     detailPopup.classList.add('show');
 }
