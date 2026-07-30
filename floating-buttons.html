@@ -1,0 +1,90 @@
+<!-- ================================================================= -->
+<!-- [플로팅 버튼 세트] 헤더 HTML 삽입용 코드                           -->
+<!-- 전화 버튼 및 카카오톡 상담 버튼 (우측 하단 고정)                       -->
+<!-- ================================================================= -->
+
+<!-- 
+  [사용 방법]
+  아래 코드(방법 1 또는 방법 2) 전체를 사용하시는 사이트의 
+  헤더 HTML(Header HTML) 또는 <body> 안쪽 최상단/최하단에 복사해서 붙여넣으시면 됩니다.
+-->
+
+<!-- ▼▼▼▼▼▼▼▼▼▼ [방법 1] 순수 CSS 방식 (권장: Tailwind 없이 어디서나 작동) ▼▼▼▼▼▼▼▼▼▼ -->
+<style>
+    .hp-floating-container {
+        position: fixed;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 540px;
+        z-index: 99999;
+        pointer-events: none;
+        padding-left: 24px;
+        padding-right: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+        box-sizing: border-box;
+    }
+    .hp-floating-btn {
+        pointer-events: auto;
+        position: relative;
+        display: inline-block;
+        transition: transform 0.2s ease-in-out;
+        text-decoration: none;
+    }
+    .hp-floating-btn:hover {
+        transform: scale(1.1);
+    }
+    .hp-floating-btn:active {
+        transform: scale(0.95);
+    }
+    .hp-floating-img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+        display: block;
+    }
+    @media (min-width: 768px) {
+        .hp-floating-img {
+            width: 64px;
+            height: 64px;
+        }
+    }
+</style>
+
+<div class="hp-floating-container">
+    <!-- 1. 전화 연결 버튼 -->
+    <a href="tel:010-3972-4624" class="hp-floating-btn" aria-label="전화 상담">
+        <img src="https://img.easyl.net/call.png" alt="전화 상담" class="hp-floating-img">
+    </a>
+
+    <!-- 2. 카카오 채널 버튼 -->
+    <a href="https://pf.kakao.com/_xxxx" target="_blank" rel="noopener noreferrer" class="hp-floating-btn" aria-label="카카오톡 상담">
+        <img src="https://img.easyl.net/kakao.png" alt="카카오톡 상담" class="hp-floating-img">
+    </a>
+</div>
+<!-- ▲▲▲▲▲▲▲▲▲▲ [방법 1] End ▲▲▲▲▲▲▲▲▲▲ -->
+
+
+
+
+<!-- ▼▼▼▼▼▼▼▼▼▼ [방법 2] 기존 Tailwind CSS 클래스 방식 (Tailwind 적용 사이트용) ▼▼▼▼▼▼▼▼▼▼ -->
+<!--
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 w-full max-w-[540px] z-[100] pointer-events-none px-6 flex flex-col items-end gap-3">
+    <a href="tel:010-3972-4624"
+        class="pointer-events-auto group relative transition-transform duration-200 md:hover:scale-110 active:scale-95">
+        <img src="https://img.easyl.net/call.png" alt="전화 상담"
+            class="w-12 h-12 md:w-16 md:h-16 drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)] object-contain">
+    </a>
+    <a href="https://pf.kakao.com/_xxxx" target="_blank" rel="noopener noreferrer"
+        class="pointer-events-auto group relative transition-transform duration-200 md:hover:scale-110 active:scale-95">
+        <img src="https://img.easyl.net/kakao.png" alt="카카오톡 상담"
+            class="w-12 h-12 md:w-16 md:h-16 drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)] object-contain">
+    </a>
+</div>
+-->
+<!-- ▲▲▲▲▲▲▲▲▲▲ [방법 2] End ▲▲▲▲▲▲▲▲▲▲ -->

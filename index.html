@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈피 몬스터 - 압도적 퀄리티 랜딩페이지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #f5f5f4;
+            color: #171717;
+            -webkit-font-smoothing: antialiased;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 고급스러운 무빙 그라데이션 배경 */
+        .bg-animated-mesh {
+            background: linear-gradient(-45deg, #ffffff, #f5f5f4, #e7e5e4, #d6d3d1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* 시네마틱 스크롤 리빌 (Blur + Scale + Translate) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            filter: blur(10px);
+            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+
+        /* 순차적 애니메이션 딜레이 */
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        /* 가로 스크롤바 숨기기 및 스무스 스크롤 */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 모바일 컨테이너 (PC 중앙 정렬 및 좌우 완전 대칭 여백 보장) */
+        .mobile-container {
+            width: 100%;
+            max-width: 540px;
+            margin: 68px auto 0 auto;
+            background-color: transparent;
+            min-height: calc(100vh - 68px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            overflow-x: clip;
+            box-sizing: border-box;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        /* 버튼 빛 반사 (Shine) 애니메이션 */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            20% {
+                left: 200%;
+            }
+
+            100% {
+                left: 200%;
+            }
+        }
+
+        /* 텍스트 그라데이션 하이라이트 (미세 조정 메탈릭 실버) */
+        .text-gradient-dark {
+            background: linear-gradient(135deg, #000000 0%, #27272a 40%, #71717a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 포트폴리오 호버 효과 */
+        .portfolio-card:hover .portfolio-img {
+            transform: scale(1.08);
+        }
+
+        /* 텍스트 글로우 */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        /* 둥둥 떠다니는 애니메이션 (뱃지 등) */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* 커졌다 작아졌다 하는 펄스 스케일 애니메이션 */
+        @keyframes pulse-scale {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.06);
+            }
+        }
+
+        .pulse-scale,
+        .floating-circle {
+            animation: pulse-scale 1.8s ease-in-out infinite;
+        }
+
+        /* 캐릭터 이미지 전용 공통 그림자 클래스 */
+        .character-img-shadow {
+            filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.46));
+        }
+
+        /* 모달 스타일 */
+        #custom-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #custom-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        #custom-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        /* 무한 컨베이어 벨트 마키 애니메이션 */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 16s linear infinite;
+        }
+
+        /* 맥북 뒷배경 대각선 HOMPI MONSTER 컨베이어 벨트 마키 */
+        @keyframes hompiTapeScroll {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-hompi-tape {
+            display: flex;
+            width: max-content;
+            animation: hompiTapeScroll 32s linear infinite;
+        }
+
+        @keyframes hompiTapeScrollReverse {
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+        .animate-hompi-tape-reverse {
+            display: flex;
+            width: max-content;
+            animation: hompiTapeScrollReverse 32s linear infinite;
+        }
+
+        /* 세로 무한 스크롤 마키 애니메이션 (후기 섹션) */
+        @keyframes vScrollUp {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        @keyframes vScrollDown {
+            0% {
+                transform: translateY(-50%);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .animate-v-scroll-up {
+            animation: vScrollUp 28s linear infinite;
+        }
+
+        .animate-v-scroll-down {
+            animation: vScrollDown 34s linear infinite;
+        }
+
+        .animate-v-scroll-up-fast {
+            animation: vScrollUp 24s linear infinite;
+        }
+
+        /* 마우스 스크롤 아이콘 및 휠 애니메이션 */
+        @keyframes mouseWheelScroll {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translateY(6px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+        }
+
+        @keyframes mouseBodyBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(4px);
+            }
+        }
+
+        .animate-mouse-body {
+            animation: mouseBodyBounce 2s ease-in-out infinite;
+        }
+
+        .animate-mouse-wheel {
+            animation: mouseWheelScroll 1.6s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-animated-mesh">
+
+    <!-- Header (상단 고정 헤더: body 직속으로 배치하여 position:fixed가 뷰포트 기준 상단에 완벽 고정) -->
+    <header
+        class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[540px] h-[68px] z-50 px-6 bg-white/95 backdrop-blur-lg border-b border-stone-200/80 shadow-[0_12px_32px_-4px_rgba(0,0,0,0.14),0_4px_12px_rgba(0,0,0,0.06)] flex items-center justify-between transition-all">
+        <!-- 왼쪽: 로고 이미지 링크 -->
+        <a href="#" class="flex items-center gap-2 group">
+            <img src="https://img.easyl.net/hp-logo.png" alt="홈피몬스터 로고"
+                class="h-10 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                onerror="this.onerror=null; this.outerHTML='<div class=\'flex items-center gap-2\'><div class=\'w-9 h-9 bg-black rounded-lg text-white flex items-center justify-center font-black text-base shadow-sm\'>M</div><span class=\'font-black text-2xl tracking-tight text-black\'>홈피 몬스터</span></div>';">
+        </a>
+
+        <!-- 오른쪽: 햄버거 버튼 -->
+        <button onclick="toggleMenu()" aria-label="메뉴 열기"
+            class="p-2 -mr-2 rounded-xl text-stone-800 hover:text-black active:scale-95 transition-all focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </button>
+    </header>
+
+    <main class="mobile-container pb-0">
+
+        <!-- 데코레이션 배경 요소 -->
+        <div
+            class="absolute top-20 left-10 w-32 h-32 bg-stone-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse">
+        </div>
+        <div class="absolute top-60 right-10 w-40 h-40 bg-gray-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"
+            style="animation-delay: 2s;"></div>
+
+        <!-- Hero Section -->
+        <section id="hero" class="w-full pt-20 pb-20 flex flex-col items-center text-center relative z-10">
+            <div
+                class="reveal inline-flex items-center justify-center px-5 py-2 mb-4 rounded-full border border-stone-300/80 bg-white/80 backdrop-blur-sm text-xs font-bold text-stone-700 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+                딱 1분만 집중해 주세요!
+            </div>
+
+            <h1
+                class="reveal delay-100 text-[28px] sm:text-[34px] font-black tracking-tight leading-[1.35] text-gradient-dark drop-shadow-sm break-keep">
+                홈페이지가 처음이면,<br>
+                급하게 문의하지 마세요.
+            </h1>
+
+            <!-- MacBook Mockup Container -->
+            <div class="reveal delay-200 relative w-full max-w-full mx-auto px-0 sm:px-2 my-8 mb-5">
+                <!-- ================================================================= -->
+                <!-- [제거 용이] 맥북 뒷배경 대각선 무한 회전 띠 (HOMPI MONSTER) START -->
+                <!-- 잘못되었거나 불필요 시 이 주석 블록 전체를 삭제하시면 바로 제거됩니다. -->
+                <!-- ================================================================= -->
+                <div id="hompi-macbook-tape-bg"
+                    class="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%+60px)] h-full pointer-events-none z-0 flex items-center justify-center overflow-hidden">
+                    <div
+                        class="w-[240%] -rotate-[9deg] bg-stone-800 text-stone-300 py-4 sm:py-5 border-y border-stone-700/80 shadow-md overflow-hidden">
+                        <div
+                            class="animate-hompi-tape flex whitespace-nowrap font-extrabold tracking-[0.25em] text-sm sm:text-base select-none">
+                            <!-- 첫 번째 세트 -->
+                            <div class="flex items-center gap-8 px-4">
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                            </div>
+                            <!-- 두 번째 세트 (무한 연결) -->
+                            <div class="flex items-center gap-8 px-4" aria-hidden="true">
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                                <span class="text-stone-300">HOMPI MONSTER</span><span
+                                    class="text-stone-500 text-xs">✦</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [제거 용이] 맥북 뒷배경 대각선 무한 회전 띠 (HOMPI MONSTER) END -->
+                <!-- ================================================================= -->
+
+                <div class="relative w-full aspect-[16/10] rounded-lg">
+                    <!-- 1. 실제 영상 (둥글게 크롭 및 위치 조정) -->
+                    <div
+                        style="position: absolute; left: calc(50% + 0%); top: calc(50% + -7.5%); width: 79%; height: 82.5%; transform: translate(-50%, -50%); overflow: hidden; z-index: 5;">
+                        <video
+                            style="position: absolute; left: calc(50% + 0%); top: calc(50% + 0%); width: 106%; height: 102%; transform: translate(-50%, -50%); object-fit: fill;"
+                            class="w-full h-full" autoplay loop muted playsinline src="https://img.easyl.net/p.mp4">
+                        </video>
+                    </div>
+
+                    <!-- 2. 맥북 프레임 이미지 -->
+                    <img src="https://img.easyl.net/mac.png" alt="MacBook Mockup"
+                        class="relative z-10 w-full h-auto pointer-events-none drop-shadow-2xl">
+                </div>
+            </div>
+
+            <p class="reveal delay-300 text-stone-600 font-semibold leading-relaxed mb-4 text-lg break-keep">
+                다른 곳들과 꼼꼼히 비교하고,<br>
+                차이가 느껴지면 그때 문의주세요!
+            </p>
+        </section>
+
+        <!-- Problem Section Wrapper -->
+        <div class="w-[calc(100%+40px)] -mx-[20px] bg-white">
+            <section class="w-full px-6 py-20 flex flex-col items-center text-center relative z-10">
+                <h2 class="reveal text-[28px] sm:text-[34px] font-extrabold tracking-tight leading-[1.35] break-keep">
+                    홈페이지 제작,<br>
+                    <span class="text-stone-400">왜 이렇게 비쌀까요?</span>
+                </h2>
+
+                <!-- [이미지 영역] 캐릭터 안내 이미지 및 뒷배경 ₩ 무한 컨베이어 벨트 -->
+                <div
+                    class="reveal delay-100 relative w-full max-w-[320px] sm:max-w-[340px] mx-auto my-2 mb-6 px-4 flex items-center justify-center">
+
+                    <!-- ================================================================= -->
+                    <!-- [제거 용이] 캐릭터 뒷배경 ₩ 무한 회전 띠 (Won Symbol Conveyor) START -->
+                    <!-- 마음에 안 들 경우 이 주석 블록 전체를 삭제하시면 바로 제거됩니다. -->
+                    <!-- ================================================================= -->
+                    <div id="character-won-marquee-bg"
+                        class="absolute -inset-x-8 -inset-y-4 pointer-events-none z-0 flex flex-col justify-center gap-2 overflow-hidden select-none opacity-30"
+                        style="mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);">
+
+                        <!-- 줄 1: 정방향 무한 흐름 -->
+                        <div
+                            class="animate-marquee-track flex whitespace-nowrap text-stone-400 font-extrabold text-lg tracking-[0.35em] opacity-40">
+                            <div class="flex items-center gap-5 px-2">
+                                <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                            </div>
+                            <div class="flex items-center gap-5 px-2" aria-hidden="true">
+                                <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                            </div>
+                        </div>
+
+                        <!-- 줄 2: 역방향 무한 흐름 -->
+                        <div
+                            class="animate-hompi-tape-reverse flex whitespace-nowrap text-stone-500 font-black text-2xl tracking-[0.4em] opacity-60">
+                            <div class="flex items-center gap-6 px-2">
+                                <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                            </div>
+                            <div class="flex items-center gap-6 px-2" aria-hidden="true">
+                                <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                            </div>
+                        </div>
+
+                        <!-- 줄 3: 정방향 무한 흐름 -->
+                        <div
+                            class="animate-marquee-track flex whitespace-nowrap text-stone-400 font-extrabold text-lg tracking-[0.35em] opacity-40">
+                            <div class="flex items-center gap-5 px-2">
+                                <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                            </div>
+                            <div class="flex items-center gap-5 px-2" aria-hidden="true">
+                                <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [제거 용이] 캐릭터 뒷배경 ₩ 무한 회전 띠 END -->
+                    <!-- ================================================================= -->
+
+                    <img src="https://img.easyl.net/head.png" alt="홈페이지 제작 안내 이미지"
+                        class="relative z-10 w-full max-w-[220px] sm:max-w-[230px] h-auto mx-auto pointer-events-none pulse-scale character-img-shadow"
+                        onerror="this.style.display='none';">
+                </div>
+
+                <h3
+                    class="reveal delay-100 text-xl font-bold mb-4 text-black bg-stone-200 px-6 py-2 rounded-lg inline-block">
+                    비효율적인 작업 구조 때문!
+                </h3>
+
+                <!-- [무한 컨베이어 벨트] 크게 키운 역할 카드 슬라이더 -->
+                <div class="reveal delay-200 w-full overflow-hidden my-4 mb-6 relative py-4">
+                    <!-- 좌우 은은한 페이드 이펙트 -->
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none">
+                    </div>
+
+                    <div class="animate-marquee-track gap-3.5 whitespace-nowrap">
+                        <!-- 첫 번째 카트 세트 -->
+                        <div class="flex gap-3.5 items-center">
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-stone-900 shadow-sm"></span>PM
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-sm"></span>기획
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-sm"></span>디자이너
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm"></span>퍼블리셔
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm"></span>개발자
+                            </span>
+                        </div>
+                        <!-- 두 번째 카트 세트 (무한 연결) -->
+                        <div class="flex gap-3.5 items-center" aria-hidden="true">
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-stone-900 shadow-sm"></span>PM
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-sm"></span>기획
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-sm"></span>디자이너
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm"></span>퍼블리셔
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white border border-stone-200/90 rounded-2xl text-base font-black text-stone-800 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-stone-400 hover:scale-105 transition-all">
+                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm"></span>개발자
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="reveal delay-300 text-stone-600 font-medium leading-relaxed mb-4 text-lg">
+                    간단한 홈페이지 하나 만들 때에도<br>
+                    여러 사람이 작업에 참여합니다.
+                </p>
+
+                <!-- Decorative arrow pointing down with clean top & bottom margins -->
+                <div class="reveal flex justify-center items-center my-6 py-2">
+                    <svg class="w-6 h-6 text-stone-400 animate-bounce" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </div>
+
+                <div class="reveal w-full max-w-[390px] mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-stone-800 to-black rounded-2xl py-6 px-6 w-full shadow-2xl border border-stone-700 transform transition-transform hover:scale-[1.02] duration-500">
+                        <p class="text-stone-300 leading-relaxed font-semibold text-lg break-keep">
+                            여기서 발생하는 인건비는<br>
+                            <span class="text-white font-bold underline decoration-stone-500 underline-offset-4">소비자에게
+                                그대로 청구됩니다</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Solution Section -->
+        <section class="w-full pt-20 pb-6 flex flex-col items-center text-center relative z-10">
+            <div
+                class="reveal inline-flex items-center justify-center px-5 py-2 mb-4 rounded-full border border-stone-300/80 bg-white/80 backdrop-blur-sm text-xs font-bold text-stone-700 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+                아직도 비싼 돈 내시나요?
+            </div>
+
+            <h2
+                class="reveal delay-100 text-[28px] sm:text-[34px] font-black mb-4 leading-[1.35] text-gradient-dark drop-shadow-sm break-keep">
+                더 이상 홈페이지에<br>
+                큰 돈 쓰지 마세요!
+            </h2>
+
+            <!-- [이미지 영역] 커졌다 작아졌다 펄스 효과 솔루션 안내 이미지 및 뒷배경 ₩ 무한 컨베이어 벨트 -->
+            <div
+                class="reveal delay-100 relative w-full max-w-[320px] sm:max-w-[340px] mx-auto my-1 mb-7 px-4 flex items-center justify-center">
+
+                <!-- ================================================================= -->
+                <!-- [제거 용이] 캐릭터 뒷배경 ₩ 무한 회전 띠 (Won Symbol Conveyor) START -->
+                <!-- 마음에 안 들 경우 이 주석 블록 전체를 삭제하시면 바로 제거됩니다. -->
+                <!-- ================================================================= -->
+                <div id="solution-won-marquee-bg"
+                    class="absolute -inset-x-8 -inset-y-4 pointer-events-none z-0 flex flex-col justify-center gap-2 overflow-hidden select-none opacity-30"
+                    style="mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);">
+
+                    <!-- 줄 1: 정방향 무한 흐름 -->
+                    <div
+                        class="animate-marquee-track flex whitespace-nowrap text-stone-400 font-extrabold text-lg tracking-[0.35em] opacity-40">
+                        <div class="flex items-center gap-5 px-2">
+                            <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                        </div>
+                        <div class="flex items-center gap-5 px-2" aria-hidden="true">
+                            <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                        </div>
+                    </div>
+
+                    <!-- 줄 2: 역방향 무한 흐름 -->
+                    <div
+                        class="animate-hompi-tape-reverse flex whitespace-nowrap text-stone-500 font-black text-2xl tracking-[0.4em] opacity-60">
+                        <div class="flex items-center gap-6 px-2">
+                            <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                        </div>
+                        <div class="flex items-center gap-6 px-2" aria-hidden="true">
+                            <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                        </div>
+                    </div>
+
+                    <!-- 줄 3: 정방향 무한 흐름 -->
+                    <div
+                        class="animate-marquee-track flex whitespace-nowrap text-stone-400 font-extrabold text-lg tracking-[0.35em] opacity-40">
+                        <div class="flex items-center gap-5 px-2">
+                            <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                        </div>
+                        <div class="flex items-center gap-5 px-2" aria-hidden="true">
+                            <span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span><span>₩</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- [제거 용이] 캐릭터 뒷배경 ₩ 무한 회전 띠 END -->
+                <!-- ================================================================= -->
+
+                <img src="https://img.easyl.net/x.png" alt="솔루션 안내 이미지"
+                    class="relative z-10 w-full max-w-[220px] sm:max-w-[230px] h-auto mx-auto pointer-events-none pulse-scale character-img-shadow"
+                    onerror="if(this.src && !this.src.endsWith('/')) { this.style.display='none'; } else { this.style.display='block'; }">
+            </div>
+
+            <div
+                class="reveal delay-100 bg-white p-6 rounded-2xl shadow-sm border border-stone-200 w-full max-w-[390px]">
+                <p class="text-stone-600 font-bold leading-relaxed text-lg break-keep">
+                    압도적인 기술과 실력으로<br>
+                    거품을 확 걷어냈습니다!<br>
+                    <span
+                        class="text-black font-bold mt-4 block text-xl bg-stone-100 py-3.5 px-5 rounded-xl leading-snug">가격은
+                        낮췄지만,<br>퀄리티는 최상</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Real Reviews Section (자연스럽게 끼워넣은 위아래 세로 모션 후기) -->
+        <section class="w-full py-2 my-6 flex flex-col items-center relative z-10 overflow-hidden">
+            <!-- Vertical Moving Reviews Frame (No title, No outer box, Reduced padding) -->
+            <div class="w-full max-w-[540px] px-2 sm:px-4 reveal">
+                <div class="review-marquee-container relative w-full h-[360px] sm:h-[400px] overflow-hidden">
+
+                    <!-- Top & Bottom Gradient Masks for seamless fade -->
+                    <div
+                        class="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-[#f5f5f4] via-[#f5f5f4]/80 to-transparent z-20 pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-[#f5f5f4] via-[#f5f5f4]/80 to-transparent z-20 pointer-events-none">
+                    </div>
+
+                    <!-- 3 Columns Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 h-full overflow-hidden">
+
+                        <!-- Column 1: Moves UP -->
+                        <div class="flex flex-col gap-3 sm:gap-4 animate-v-scroll-up shrink-0">
+                            <!-- Set 1 -->
+                            <div class="flex flex-col gap-3 sm:gap-4 shrink-0">
+                                <!-- Review 1 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “남들 다 쓰는 조립식 홈페이지랑은 속도가 비교가 안 되네요. 문의 예약이 확실히 늘었습니다!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">김도현</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">네일아트
+                                                원장</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 2 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “비즈니스 동선을 잘 짜주셔서 홈페이지 오픈 첫 달에 법률 상담 문의가 2배 이상 폭증했습니다.”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">박성준</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">변호사</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 3 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “다른 개발사 견적 반값 수준이라 걱정했는데 디자인 퀄리티 보니까 대기업 사이트 같네요!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">이수진</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">쇼핑몰
+                                                운영</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 4 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “네이버랑 구글 포털 검색에 우리 가게가 상단에 뜨기 시작했어요. SEO 최적화 진짜 최고!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">최현우</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">인테리어
+                                                업체</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Set 2 (Exact Clone for Infinite Scroll) -->
+                            <div class="flex flex-col gap-3 sm:gap-4 shrink-0">
+                                <!-- Review 1 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “남들 다 쓰는 조립식 홈페이지랑은 속도가 비교가 안 되네요. 문의 예약이 확실히 늘었습니다!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">김도현</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">네일아트
+                                                원장</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 2 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “비즈니스 동선을 잘 짜주셔서 홈페이지 오픈 첫 달에 법률 상담 문의가 2배 이상 폭증했습니다.”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">박성준</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">변호사</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 3 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “다른 개발사 견적 반값 수준이라 걱정했는데 디자인 퀄리티 보니까 대기업 사이트 같네요!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">이수진</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">쇼핑몰
+                                                운영</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 4 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “네이버랑 구글 포털 검색에 우리 가게가 상단에 뜨기 시작했어요. SEO 최적화 진짜 최고!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">최현우</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">인테리어
+                                                업체</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Moves DOWN -->
+                        <div class="flex flex-col gap-3 sm:gap-4 animate-v-scroll-down shrink-0">
+                            <!-- Set 1 -->
+                            <div class="flex flex-col gap-3 sm:gap-4 shrink-0">
+                                <!-- Review 5 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “제조업 특성상 해외 바이어 미팅이 많은데 사이트 보여주면 바로 신뢰받습니다. 바이어 계약 성공!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">강민재</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">제조업</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 6 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “유튜버라 구독자용 웹사이트가 필요했는데 작업 속도가 진짜 빠르고 피드백 소통이 완벽해요.”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">윤서아</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">유튜버</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 7 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “단순히 예쁜 디자인이 아니라 손님이 바로 전화 문의하도록 설계해주신 게 진짜 신의 한 수!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">정다은</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">자영업자</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 8 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “카페 오픈 준비하면서 사이트 만든 건데 모바일로 볼 때 감성이 미쳤어요. 인스타그램 반응 대박!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">임태경</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">자영업자 (카페
+                                                대표)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Set 2 (Exact Clone for Infinite Scroll) -->
+                            <div class="flex flex-col gap-3 sm:gap-4 shrink-0">
+                                <!-- Review 5 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “제조업 특성상 해외 바이어 미팅이 많은데 사이트 보여주면 바로 신뢰받습니다. 바이어 계약 성공!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">강민재</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">제조업</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 6 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “유튜버라 구독자용 웹사이트가 필요했는데 작업 속도가 진짜 빠르고 피드백 소통이 완벽해요.”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">윤서아</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">유튜버</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 7 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “단순히 예쁜 디자인이 아니라 손님이 바로 전화 문의하도록 설계해주신 게 진짜 신의 한 수!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">정다은</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">자영업자</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 8 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “카페 오픈 준비하면서 사이트 만든 건데 모바일로 볼 때 감성이 미쳤어요. 인스타그램 반응 대박!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">임태경</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">자영업자 (카페
+                                                대표)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 3: Moves UP FAST -->
+                        <div class="hidden sm:flex flex-col gap-3 sm:gap-4 animate-v-scroll-up-fast shrink-0">
+                            <!-- Set 1 -->
+                            <div class="flex flex-col gap-3 sm:gap-4 shrink-0">
+                                <!-- Review 9 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “PT샵 오픈 후 문의가 안 들어와서 고민이었는데 홈페이지 개편 후 회원등록 수가 급증했습니다.”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">한소희</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">자영업자 (피티샵
+                                                대표)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 10 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “전문직에 딱 맞는 고급스럽고 신뢰감 넘치는 디자인입니다. 돈이 전혀 아깝지 않네요!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">서진우</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">세무사</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 11 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “직접 코딩 개발이라 로딩 속도가 미쳤습니다. 서비스 소개용으로 이만한 게 없네요.”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">오지훈</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">IT 스타트업
+                                                대표</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 12 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “수정 반영도 빠르고 신속한 피드백 감동입니다. 덕분에 신규 원생 모집 문의가 대폭 늘었습니다!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">류민석</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">자영업자 (학원
+                                                원장)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Set 2 (Exact Clone for Infinite Scroll) -->
+                            <div class="flex flex-col gap-3 sm:gap-4 shrink-0">
+                                <!-- Review 9 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “PT샵 오픈 후 문의가 안 들어와서 고민이었는데 홈페이지 개편 후 회원등록 수가 급증했습니다.”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">한소희</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">자영업자 (피티샵
+                                                대표)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 10 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “전문직에 딱 맞는 고급스럽고 신뢰감 넘치는 디자인입니다. 돈이 전혀 아깝지 않네요!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">서진우</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">세무사</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 11 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “직접 코딩 개발이라 로딩 속도가 미쳤습니다. 서비스 소개용으로 이만한 게 없네요.”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">오지훈</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">IT 스타트업
+                                                대표</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 12 -->
+                                <div
+                                    class="bg-white/95 rounded-2xl p-4 sm:p-4.5 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
+                                    <p class="text-stone-800 font-bold text-xs sm:text-sm leading-snug break-keep mb-3">
+                                        “수정 반영도 빠르고 신속한 피드백 감동입니다. 덕분에 신규 원생 모집 문의가 대폭 늘었습니다!”
+                                    </p>
+                                    <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
+                                        <div
+                                            class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
+                                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
+                                                alt="프로필"
+                                                class="w-full h-full object-cover filter blur-[4px] scale-110">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span
+                                                class="font-black text-xs sm:text-sm text-stone-900 truncate">류민석</span>
+                                            <span class="text-[11px] font-semibold text-stone-500 truncate">자영업자 (학원
+                                                원장)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="w-full pt-8 pb-5 flex flex-col items-center relative z-10 overflow-hidden">
+            <div class="w-full px-6 flex justify-between items-end mb-8 reveal">
+                <h2 class="text-3xl font-black text-black">
+                    프로젝트 예시
+                </h2>
+                <span class="text-xs font-bold text-stone-400 tracking-wider">PORTFOLIO</span>
+            </div>
+
+            <!-- 포트폴리오 16:9 썸네일 가로 스크롤 -->
+            <div class="w-full overflow-x-auto hide-scrollbar px-6 pb-12 flex gap-5 reveal delay-100">
+
+                <!-- Set 1 -->
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
+                    <div
+                        class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
+                        <img src="https://img.easyl.net/p1.png" alt="온라인 강의 플랫폼"
+                            class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
+                        <h4 class="font-black text-xl text-black">온라인 강의 플랫폼</h4>
+                        <p class="text-sm font-semibold text-stone-500 mt-1">강의 판매부터 쇼핑몰까지</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
+                    <div
+                        class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
+                        <img src="https://img.easyl.net/p2.png" alt="웹빌더 서비스"
+                            class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
+                        <h4 class="font-black text-xl text-black">웹빌더 서비스</h4>
+                        <p class="text-sm font-semibold text-stone-500 mt-1">DB 수집용 랜딩페이지 빌더</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
+                    <div
+                        class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
+                        <img src="https://img.easyl.net/p3.png" alt="체험단 모집 플랫폼"
+                            class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
+                        <h4 class="font-black text-xl text-black">체험단 모집 플랫폼</h4>
+                        <p class="text-sm font-semibold text-stone-500 mt-1">해외 인플루언서 중개</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
+                    <div
+                        class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
+                        <img src="https://img.easyl.net/p4.png" alt="SNS 분석 서비스"
+                            class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
+                        <h4 class="font-black text-xl text-black">SNS 분석 서비스</h4>
+                        <p class="text-sm font-semibold text-stone-500 mt-1">콘텐츠 서칭 및 분석</p>
+                    </div>
+                </div>
+
+                <!-- Set 2 (Cloned for Infinite Scroll) -->
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
+                    <div
+                        class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
+                        <img src="https://img.easyl.net/p1.png" alt="온라인 강의 플랫폼"
+                            class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
+                        <h4 class="font-black text-xl text-black">온라인 강의 플랫폼</h4>
+                        <p class="text-sm font-semibold text-stone-500 mt-1">강의 판매부터 쇼핑몰까지</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
+                    <div
+                        class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
+                        <img src="https://img.easyl.net/p2.png" alt="웹빌더 서비스"
+                            class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
+                        <h4 class="font-black text-xl text-black">웹빌더 서비스</h4>
+                        <p class="text-sm font-semibold text-stone-500 mt-1">DB 수집 랜딩페이지 빌더</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
+                    <div
+                        class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
+                        <img src="https://img.easyl.net/p3.png" alt="체험단 모집 플랫폼"
+                            class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
+                        <h4 class="font-black text-xl text-black">체험단 모집 플랫폼</h4>
+                        <p class="text-sm font-semibold text-stone-500 mt-1">해외 인플루언서 중개</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
+                    <div
+                        class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
+                        <img src="https://img.easyl.net/p4.png" alt="SNS 분석 서비스"
+                            class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-left transform transition-all group-hover:translate-x-2 duration-300">
+                        <h4 class="font-black text-xl text-black">SNS 분석 서비스</h4>
+                        <p class="text-sm font-semibold text-stone-500 mt-1">콘텐츠 서칭 및 분석</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div
+                class="reveal delay-200 flex items-center justify-center gap-3 text-stone-400 font-bold text-sm bg-white/50 px-5 py-2 rounded-full backdrop-blur-sm border border-stone-200 shadow-sm">
+                <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                좌우로 스크롤하여 확인해보세요
+                <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                    </path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="w-full pt-4 pb-20 flex flex-col items-center relative z-10">
+            <!-- [마우스 스크롤 무빙 아이콘] 옅은 회색 마우스 & 휠 애니메이션 (여백 딱 중간 위치) -->
+            <div class="reveal delay-200 w-full flex justify-center items-center mb-8">
+                <div
+                    class="animate-mouse-body w-5 h-9 rounded-full border-2 border-stone-300/90 flex justify-center pt-1.5 shadow-sm">
+                    <div class="animate-mouse-wheel w-1 h-2 bg-stone-400 rounded-full"></div>
+                </div>
+            </div>
+
+            <h2
+                class="reveal text-[24px] sm:text-[28px] font-black text-center text-black tracking-tight leading-[1.35] break-keep">
+                왜 선택해야 할까요?
+            </h2>
+            <p class="reveal delay-100 text-stone-500 font-bold text-center text-lg">
+                3가지 핵심 포인트를 체크하세요!
+            </p>
+
+            <!-- 얇은 구분선 -->
+            <div class="reveal delay-150 w-full max-w-[240px] mx-auto h-[1px] bg-stone-200 my-6"></div>
+
+            <div class="w-full flex flex-col gap-8">
+                <!-- Feature 01 -->
+                <div
+                    class="reveal bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-200 relative overflow-hidden group hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)] transition-all duration-500">
+                    <div
+                        class="absolute -bottom-6 right-0 text-[120px] font-black text-stone-100/70 select-none group-hover:scale-110 transition-transform duration-700 ease-out pointer-events-none">
+                        01</div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-black text-black mb-4 flex items-center gap-2.5">
+                            <span
+                                class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3.5"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </span>
+                            좋은 품질, 저렴한 가격
+                        </h3>
+                        <p class="text-stone-600 font-medium leading-relaxed mb-3 break-keep">
+                            저희는 복잡한 플랫폼과 앱을 만드는 최고 수준의 개발팀입니다.
+                        </p>
+                        <p class="text-stone-600 font-medium leading-relaxed break-keep">
+                            그러한 기술력으로 작업 시간을 확 줄였고, 덕분에 퀄리티는 높이면서 제작 비용은 크게 낮추는 것이 가능합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 02 -->
+                <div
+                    class="reveal delay-100 bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-200 relative overflow-hidden group hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)] transition-all duration-500">
+                    <div
+                        class="absolute -bottom-6 right-0 text-[120px] font-black text-stone-100/70 select-none group-hover:scale-110 transition-transform duration-700 ease-out pointer-events-none">
+                        02</div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-black text-black mb-4 flex items-center gap-2.5">
+                            <span
+                                class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3.5"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </span>
+                            웹빌더 X, 맞춤 개발 O
+                        </h3>
+                        <p class="text-stone-600 font-medium leading-relaxed mb-3 break-keep">
+                            남들 다 쓰는 뻔한 조립식 홈페이지(아임웹, 카페24 등)가 아닙니다.
+                        </p>
+                        <p class="text-stone-600 font-medium leading-relaxed break-keep">
+                            처음부터 직접 코딩을 하기에 접속 속도가 훨씬 빠르고, 포털 검색에도 내 사이트가 잘 노출됩니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 03 -->
+                <div
+                    class="reveal delay-200 bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-200 relative overflow-hidden group hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)] transition-all duration-500">
+                    <div
+                        class="absolute -bottom-6 right-0 text-[120px] font-black text-stone-100/70 select-none group-hover:scale-110 transition-transform duration-700 ease-out pointer-events-none">
+                        03</div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-black text-black mb-4 flex items-center gap-2.5">
+                            <span
+                                class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3.5"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </span>
+                            돈 버는 진짜 홈페이지
+                        </h3>
+                        <p class="text-stone-600 font-medium leading-relaxed mb-3 break-keep">
+                            예쁘기만 한 홈페이지는 절대 만들지 않습니다.
+                        </p>
+                        <p class="text-stone-600 font-medium leading-relaxed break-keep">
+                            저희 임원진은 모두 마케터 출신 개발자로, 비즈니스 관점에서 설계합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section (Flat White Background Section - Ends Cleanly with Pure White) -->
+        <section id="pricing"
+            class="w-[calc(100%+40px)] -mx-[20px] px-6 py-16 mt-8 mb-0 bg-white border-t border-stone-200/80 relative z-10 text-center reveal">
+            <div class="w-full max-w-[480px] mx-auto flex flex-col items-center">
+
+
+
+                <!-- Section Heading -->
+                <h2
+                    class="text-[28px] sm:text-[34px] font-black text-stone-900 tracking-tight mb-2 leading-tight break-keep">
+                    가격 거품 없는<br>
+                    <span class="text-gradient-dark">투명한 정찰제 방식</span>
+                </h2>
+                <p class="text-stone-500 text-xs sm:text-sm font-medium mb-8 break-keep">
+                    복잡한 옵션 없이, 핵심 기능을 모두 담았습니다.
+                </p>
+
+                <!-- Pricing Display Block (No Outer Card Box, Clean border divider) -->
+                <div class="w-full py-6 mb-8 border-y border-stone-100 flex flex-col items-center justify-center">
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <span
+                            class="text-[11px] font-bold text-white bg-stone-900 px-2.5 py-0.5 rounded shadow-sm">베이직</span>
+                        <span
+                            class="text-[11px] font-bold text-stone-500 uppercase tracking-wider bg-stone-100 px-2.5 py-0.5 rounded border border-stone-200">정가</span>
+                        <span
+                            class="text-stone-400 line-through decoration-stone-300 decoration-2 font-bold text-base sm:text-lg">250만원</span>
+                    </div>
+                    <div class="flex items-baseline justify-center gap-1">
+                        <span
+                            class="text-[52px] sm:text-[62px] font-black text-stone-900 tracking-tight leading-none">90<span
+                                class="text-2xl sm:text-3xl font-extrabold ml-1">만원~</span></span>
+                        <span class="text-xs sm:text-sm font-bold text-stone-400 ml-1.5">(VAT 별도)</span>
+                    </div>
+
+                    <!-- Plan Page Description Note -->
+                    <p class="mt-3 text-xs text-stone-400 font-semibold tracking-tight text-center break-keep">
+                        * 기본 5페이지로 구성되어 있습니다.
+                    </p>
+                </div>
+
+                <!-- Included Features List -->
+                <div class="w-full space-y-3 mb-8 text-left">
+                    <div
+                        class="py-3 px-4 bg-stone-50/80 rounded-xl border border-stone-200/60 flex items-center gap-3.5">
+                        <div
+                            class="w-6 h-6 rounded-full bg-stone-900 text-white flex items-center justify-center shrink-0 font-bold text-xs">
+                            ✓</div>
+                        <div class="min-w-0">
+                            <span class="text-stone-900 font-extrabold text-sm block">1:1 맞춤 카피라이팅 & 전략 기획</span>
+                            <span class="text-stone-500 text-xs font-medium block truncate">전환율을 높이는 비즈니스 세일즈 구조
+                                설계</span>
+                        </div>
+                    </div>
+                    <div
+                        class="py-3 px-4 bg-stone-50/80 rounded-xl border border-stone-200/60 flex items-center gap-3.5">
+                        <div
+                            class="w-6 h-6 rounded-full bg-stone-900 text-white flex items-center justify-center shrink-0 font-bold text-xs">
+                            ✓</div>
+                        <div class="min-w-0">
+                            <span class="text-stone-900 font-extrabold text-sm block">초고속 PC & 모바일 반응형 코딩</span>
+                            <span class="text-stone-500 text-xs font-medium block truncate">어떤 기기에서도 0.5초 대의 압도적 접속
+                                속도</span>
+                        </div>
+                    </div>
+                    <div
+                        class="py-3 px-4 bg-stone-50/80 rounded-xl border border-stone-200/60 flex items-center gap-3.5">
+                        <div
+                            class="w-6 h-6 rounded-full bg-stone-900 text-white flex items-center justify-center shrink-0 font-bold text-xs">
+                            ✓</div>
+                        <div class="min-w-0">
+                            <span class="text-stone-900 font-extrabold text-sm block">포털 검색엔진 최적화 (SEO) 세팅</span>
+                            <span class="text-stone-500 text-xs font-medium block truncate">네이버 & 구글 상위 노출을 위한 기본
+                                세팅</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Limited Capacity Quality Policy Box -->
+                <div class="w-full py-4 px-5 bg-stone-900 text-white rounded-xl text-center shadow-md">
+                    <p class="text-stone-200 font-normal text-sm sm:text-base mb-0.5 break-keep">
+                        품질을 위해 매월 5팀만 받으며,
+                    </p>
+                    <p class="text-white font-bold text-sm sm:text-base break-keep">
+                        대기는 평균 7~20일 정도입니다
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <!-- Custom Modal for CTA (No alert() allowed) -->
+    <div id="custom-modal"
+        class="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm">
+        <div
+            class="modal-content bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center relative border border-stone-200">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 text-stone-400 hover:text-black transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+            <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-black text-black mb-2">문의하기</h3>
+            <p class="text-stone-500 font-medium mb-6 break-keep">
+                현재 데모 페이지입니다.<br>실제 서비스에서는 문의 폼으로 이동합니다.
+            </p>
+            <button onclick="closeModal()"
+                class="w-full bg-black text-white font-bold py-3 rounded-xl hover:bg-stone-800 transition-colors">
+                확인
+            </button>
+        </div>
+    </div>
+
+    <!-- 햄버거 메인 슬라이드 모달/드로어 -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-[110] bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="mobile-menu-content"
+            class="fixed top-0 right-0 w-[280px] h-full bg-white shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-out border-l border-stone-200">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-stone-100">
+                    <a href="#" onclick="toggleMenu()" class="flex items-center gap-2">
+                        <span class="font-black text-xl text-black">홈피 몬스터</span>
+                    </a>
+                    <button onclick="toggleMenu()"
+                        class="p-2 text-stone-400 hover:text-black transition-colors rounded-lg hover:bg-stone-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <nav class="mt-8 flex flex-col gap-5">
+                    <a href="#hero" onclick="toggleMenu()"
+                        class="font-extrabold text-stone-700 hover:text-black text-lg transition-colors">소개</a>
+                    <a href="#problem" onclick="toggleMenu()"
+                        class="font-extrabold text-stone-700 hover:text-black text-lg transition-colors">특징</a>
+                    <a href="#portfolio" onclick="toggleMenu()"
+                        class="font-extrabold text-stone-700 hover:text-black text-lg transition-colors">포트폴리오</a>
+                    <a href="#features" onclick="toggleMenu()"
+                        class="font-extrabold text-stone-700 hover:text-black text-lg transition-colors">핵심 포인트</a>
+                    <a href="#pricing" onclick="toggleMenu()"
+                        class="font-extrabold text-stone-700 hover:text-black text-lg transition-colors">가격 정보</a>
+                </nav>
+            </div>
+            <button onclick="toggleMenu(); openModal();"
+                class="w-full bg-black text-white font-black py-4 rounded-2xl shadow-lg hover:bg-stone-800 active:scale-95 transition-all text-base border border-stone-800">
+                카카오톡 문의하기
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        // Hamburger Menu Toggle Logic
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const content = document.getElementById('mobile-menu-content');
+            if (menu.classList.contains('pointer-events-none')) {
+                menu.classList.remove('opacity-0', 'pointer-events-none');
+                content.classList.remove('translate-x-full');
+            } else {
+                menu.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.add('translate-x-full');
+            }
+        }
+        document.getElementById('mobile-menu').addEventListener('click', function (e) {
+            if (e.target === this) {
+                toggleMenu();
+            }
+        });
+
+        // Modal Logic
+        function openModal() {
+            document.getElementById('custom-modal').classList.add('show');
+        }
+        function closeModal() {
+            document.getElementById('custom-modal').classList.remove('show');
+        }
+
+        // Close modal on outside click
+        document.getElementById('custom-modal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Advanced Intersection Observer Setup for cinematic reveals
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px 150px 0px', // 화면 하단 진입 150px 전에 미리 등장 트리거
+                threshold: 0.01
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // 한번 나타난 후에는 계속 유지되도록 unobserve 처리
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach((el) => {
+                observer.observe(el);
+            });
+
+            // 페이지 로드 및 스크롤 시 화면 근처 요소 즉시 활성화
+            const triggerNearElements = () => {
+                revealElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight + 150) {
+                        el.classList.add('active');
+                    }
+                });
+            };
+
+            setTimeout(triggerNearElements, 50);
+            window.addEventListener('scroll', triggerNearElements, { passive: true });
+
+            // 포트폴리오 가로 스크롤 (100% 진짜 무한 릴레이 자동 스크롤 + 모든 브라우저 호환)
+            const portfolioSlider = document.querySelector('#portfolio .overflow-x-auto');
+            if (portfolioSlider) {
+                let isMouseDown = false;
+                let startX = 0;
+                let scrollLeftPos = 0;
+                let isUserInteracting = false;
+                let resumeTimeout = null;
+                let accumulatedScroll = portfolioSlider.scrollLeft;
+
+                function getLoopDistance() {
+                    const cards = portfolioSlider.querySelectorAll('.portfolio-card');
+                    if (cards.length >= 5) {
+                        return cards[4].offsetLeft - cards[0].offsetLeft;
+                    }
+                    return portfolioSlider.scrollWidth / 2;
+                }
+
+                function autoScrollStep() {
+                    if (!isMouseDown && !isUserInteracting) {
+                        accumulatedScroll += 0.6; // 소수점 누적 변수로 브라우저 정수 버림 현상 완벽 방지
+
+                        const loopDist = getLoopDistance();
+                        if (loopDist > 0 && accumulatedScroll >= loopDist) {
+                            accumulatedScroll -= loopDist;
+                        }
+                        portfolioSlider.scrollLeft = accumulatedScroll;
+                    } else {
+                        accumulatedScroll = portfolioSlider.scrollLeft;
+                    }
+                    requestAnimationFrame(autoScrollStep);
+                }
+
+                function pauseAutoScroll() {
+                    isUserInteracting = true;
+                    accumulatedScroll = portfolioSlider.scrollLeft;
+                    if (resumeTimeout) clearTimeout(resumeTimeout);
+                }
+
+                function resumeAutoScrollLater() {
+                    if (resumeTimeout) clearTimeout(resumeTimeout);
+                    resumeTimeout = setTimeout(() => {
+                        accumulatedScroll = portfolioSlider.scrollLeft;
+                        isUserInteracting = false;
+                    }, 1200);
+                }
+
+                // 마우스 드래그 조작
+                portfolioSlider.addEventListener('mousedown', (e) => {
+                    isMouseDown = true;
+                    pauseAutoScroll();
+                    portfolioSlider.classList.add('cursor-grabbing');
+                    startX = e.pageX - portfolioSlider.offsetLeft;
+                    scrollLeftPos = portfolioSlider.scrollLeft;
+                });
+
+                portfolioSlider.addEventListener('mouseleave', () => {
+                    if (isMouseDown) {
+                        isMouseDown = false;
+                        portfolioSlider.classList.remove('cursor-grabbing');
+                    }
+                    resumeAutoScrollLater();
+                });
+
+                portfolioSlider.addEventListener('mouseup', () => {
+                    isMouseDown = false;
+                    portfolioSlider.classList.remove('cursor-grabbing');
+                    resumeAutoScrollLater();
+                });
+
+                portfolioSlider.addEventListener('mousemove', (e) => {
+                    if (!isMouseDown) return;
+                    e.preventDefault();
+                    pauseAutoScroll();
+                    const x = e.pageX - portfolioSlider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    let targetScroll = scrollLeftPos - walk;
+
+                    const loopDist = getLoopDistance();
+                    if (loopDist > 0) {
+                        if (targetScroll >= loopDist) {
+                            targetScroll -= loopDist;
+                            startX = e.pageX - portfolioSlider.offsetLeft;
+                            scrollLeftPos = targetScroll;
+                        } else if (targetScroll < 0) {
+                            targetScroll += loopDist;
+                            startX = e.pageX - portfolioSlider.offsetLeft;
+                            scrollLeftPos = targetScroll;
+                        }
+                    }
+                    portfolioSlider.scrollLeft = targetScroll;
+                    accumulatedScroll = targetScroll;
+                });
+
+                // 모바일 터치 조작 및 트랙패드/휠 스크롤
+                portfolioSlider.addEventListener('touchstart', pauseAutoScroll, { passive: true });
+                portfolioSlider.addEventListener('touchend', resumeAutoScrollLater, { passive: true });
+                portfolioSlider.addEventListener('wheel', () => {
+                    pauseAutoScroll();
+                    resumeAutoScrollLater();
+                }, { passive: true });
+
+                requestAnimationFrame(autoScrollStep);
+            }
+        });
+    </script>
+</body>
+
+</html>
