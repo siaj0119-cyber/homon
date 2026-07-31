@@ -234,7 +234,10 @@ export default {
       }
 
       // ── STEP 5: DB 저장 (가장 먼저!) ──
+      const newId = crypto.randomUUID();
+      const nowStr = new Date().toISOString();
       const leadPayload = {
+        id: newId,
         customer_name: data.customer_name.trim(),
         customer_phone: data.customer_phone.trim(),
         form_data: {
@@ -245,6 +248,7 @@ export default {
         status: '신규',
         platform: data.platform || '직접유입',
         ip_address: ip,
+        created_at: nowStr,
       };
 
       const dbResp = await fetch(`${env.SUPABASE_URL}/rest/v1/leads`, {
@@ -253,7 +257,7 @@ export default {
           'apikey': env.SUPABASE_KEY,
           'Authorization': `Bearer ${env.SUPABASE_KEY}`,
           'Content-Type': 'application/json',
-          'Prefer': 'return=representation',
+          'Prefer': 'return=minimal',
         },
         body: JSON.stringify(leadPayload),
       });
@@ -264,8 +268,7 @@ export default {
         return jsonResponse({ error: 'db_error', message: 'DB 저장 실패' }, 500);
       }
 
-      const savedLeads = await dbResp.json();
-      const savedLead = savedLeads[0] || {};
+      const savedLead = leadPayload;
 
       // ── STEP 6: 알림 발사 (Promise.allSettled, 백그라운드) ──
       const notifications = [];
