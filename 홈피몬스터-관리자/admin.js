@@ -60,9 +60,8 @@ const togglesState = {
 // ============================================
 // Initialization
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     lucide.createIcons();
-    checkLogin();
     setupNavigation();
     setupSearch();
     setupDateFilters();
@@ -72,8 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('Supabase not configured properly. Using mock data.');
         useMockData();
     } else {
-        fetchLeads();
-        fetchSettings();
+        await checkLogin();
     }
     setupAutoSave();
 });
@@ -81,38 +79,38 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================
 // Auth Logic
 // ============================================
-function checkLogin() {
-    const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
-    if (isLoggedIn === 'true') {
+async function checkLogin() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true' && session;
+    if (isLoggedIn) {
         loginOverlay.classList.add('hidden');
         fetchSettings();
         fetchLeads();
     } else {
+        sessionStorage.removeItem('adminLoggedIn');
         loginOverlay.classList.remove('hidden');
     }
 }
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (false) {
-        try {
-            const { data, error } = await supabaseClient.auth.signInWithPassword({
-                email: 'admin@easyl.net',
-                password: passwordInput.value
-            });
-            if (!error && data.session) {
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                loginOverlay.style.opacity = '0';
-                setTimeout(() => loginOverlay.classList.add('hidden'), 300);
-                loginError.classList.add('hidden');
-                fetchSettings();
-                fetchLeads();
-                return;
-            }
-        } catch (authErr) {}
-        loginError.classList.remove('hidden');
-        loginError.innerText = '비밀번호가 일치하지 않습니다.';
-    }
+    try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: 'admin@easyl.net',
+            password: passwordInput.value
+        });
+        if (!error && data.session) {
+            sessionStorage.setItem('adminLoggedIn', 'true');
+            loginOverlay.style.opacity = '0';
+            setTimeout(() => loginOverlay.classList.add('hidden'), 300);
+            loginError.classList.add('hidden');
+            fetchSettings();
+            fetchLeads();
+            return;
+        }
+    } catch (authErr) {}
+    loginError.classList.remove('hidden');
+    loginError.innerText = '비밀번호가 일치하지 않습니다.';
 });
 
 logoutBtn.addEventListener('click', () => {
