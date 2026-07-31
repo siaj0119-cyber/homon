@@ -93,20 +93,16 @@
             }
         }
 
-        /* 시네마틱 스크롤 리빌 (Blur + Scale + Translate) */
+        /* 시네마틱 스크롤 리빌 (모바일 GPU 렌더링 최적화) */
         .reveal {
             opacity: 0;
-            transform: translateY(60px) scale(0.95);
-            filter: blur(10px);
-            transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), filter 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-            will-change: opacity, transform, filter;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active {
             opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
-            will-change: auto;
+            transform: translateY(0);
         }
 
         /* 순차적 애니메이션 딜레이 */
@@ -498,8 +494,8 @@
                     </div>
 
                     <!-- 2. 맥북 프레임 이미지 -->
-                    <img src="https://img.easyl.net/mac.webp" alt="MacBook Mockup" width="651" height="378" fetchpriority="high"
-                        class="relative z-10 w-full h-auto pointer-events-none drop-shadow-2xl">
+                    <img src="https://img.easyl.net/mac.webp" alt="MacBook Mockup" width="651" height="378"
+                        fetchpriority="high" class="relative z-10 w-full h-auto pointer-events-none drop-shadow-2xl">
                 </div>
             </div>
 
@@ -571,7 +567,8 @@
                     <!-- [제거 용이] 캐릭터 뒷배경 ₩ 무한 회전 띠 END -->
                     <!-- ================================================================= -->
 
-                    <img loading="lazy" src="https://img.easyl.net/head.webp" alt="홈페이지 제작 안내 이미지" width="385" height="385"
+                    <img loading="lazy" src="https://img.easyl.net/head.webp" alt="홈페이지 제작 안내 이미지" width="385"
+                        height="385"
                         class="relative z-10 w-full max-w-[220px] sm:max-w-[230px] h-auto mx-auto pointer-events-none pulse-scale character-img-shadow"
                         onerror="this.style.display='none';">
                 </div>
@@ -694,7 +691,7 @@
                 </p>
 
                 <!-- Decorative arrow pointing down with clean top & bottom margins -->
-                <div class="reveal flex justify-center items-center my-6 py-2">
+                <div class="reveal flex justify-center items-center my-4">
                     <svg class="w-6 h-6 text-stone-400 animate-bounce" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -831,7 +828,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -853,7 +851,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -874,7 +873,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -896,7 +896,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -917,7 +918,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -939,7 +941,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -960,7 +963,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -982,7 +986,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1007,7 +1012,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1029,7 +1035,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1050,7 +1057,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1072,7 +1080,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1100,7 +1109,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1121,7 +1131,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1142,7 +1153,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1163,7 +1175,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1184,7 +1197,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1205,7 +1219,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1226,7 +1241,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1247,7 +1263,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1272,7 +1289,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1293,7 +1311,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1314,7 +1333,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1335,7 +1355,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1363,7 +1384,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1385,7 +1407,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1406,7 +1429,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1428,7 +1452,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1449,7 +1474,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1471,7 +1497,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1492,7 +1519,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1514,7 +1542,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1539,7 +1568,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1561,7 +1591,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1582,7 +1613,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1604,7 +1636,8 @@
                                     <div class="flex items-center gap-2.5 pt-2.5 border-t border-stone-100">
                                         <div
                                             class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0 border border-stone-200">
-                                            <img loading="lazy" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
+                                            <img loading="lazy"
+                                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
                                                 alt="프로필"
                                                 class="w-full h-full object-cover filter blur-[4px] scale-110">
                                         </div>
@@ -1641,7 +1674,8 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img loading="lazy" src="https://img.easyl.net/p1.webp" alt="온라인 강의 플랫폼" width="478" height="261"
+                        <img loading="lazy" src="https://img.easyl.net/p1.webp" alt="온라인 강의 플랫폼" width="478"
+                            height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1657,7 +1691,8 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img loading="lazy" src="https://img.easyl.net/p2.webp" alt="웹페이지 빌더 플랫폼" width="478" height="261"
+                        <img loading="lazy" src="https://img.easyl.net/p2.webp" alt="웹페이지 빌더 플랫폼" width="478"
+                            height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1673,7 +1708,8 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img loading="lazy" src="https://img.easyl.net/p3.webp" alt="체험단 모집 플랫폼" width="478" height="261"
+                        <img loading="lazy" src="https://img.easyl.net/p3.webp" alt="체험단 모집 플랫폼" width="478"
+                            height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1689,7 +1725,8 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img loading="lazy" src="https://img.easyl.net/p4.webp" alt="SNS 분석 플랫폼" width="478" height="261"
+                        <img loading="lazy" src="https://img.easyl.net/p4.webp" alt="SNS 분석 플랫폼" width="478"
+                            height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1706,7 +1743,8 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img loading="lazy" src="https://img.easyl.net/p1.webp" alt="온라인 강의 플랫폼" width="478" height="261"
+                        <img loading="lazy" src="https://img.easyl.net/p1.webp" alt="온라인 강의 플랫폼" width="478"
+                            height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1722,7 +1760,8 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img loading="lazy" src="https://img.easyl.net/p2.webp" alt="웹페이지 빌더 플랫폼" width="478" height="261"
+                        <img loading="lazy" src="https://img.easyl.net/p2.webp" alt="웹페이지 빌더 플랫폼" width="478"
+                            height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1738,7 +1777,8 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img loading="lazy" src="https://img.easyl.net/p3.webp" alt="체험단 모집 플랫폼" width="478" height="261"
+                        <img loading="lazy" src="https://img.easyl.net/p3.webp" alt="체험단 모집 플랫폼" width="478"
+                            height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1754,7 +1794,8 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img loading="lazy" src="https://img.easyl.net/p4.webp" alt="SNS 분석 플랫폼" width="478" height="261"
+                        <img loading="lazy" src="https://img.easyl.net/p4.webp" alt="SNS 분석 플랫폼" width="478"
+                            height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -2010,14 +2051,22 @@
                         </div>
                         <!-- 개인정보 동의 (3종 세트, 접힘 기본) -->
                         <div class="mt-4 pt-3 border-t border-stone-200/60">
-                            <div class="flex items-center justify-between cursor-pointer py-1 select-none" onclick="toggleTermsAccordion(event)">
-                                <label class="flex items-center gap-2 text-xs font-bold text-stone-700 cursor-pointer" onclick="event.stopPropagation()">
-                                    <input type="checkbox" id="terms-all" checked onchange="toggleAllTerms(this.checked)" class="w-4 h-4 rounded text-black focus:ring-black cursor-pointer">
+                            <div class="flex items-center justify-between cursor-pointer py-1 select-none"
+                                onclick="toggleTermsAccordion(event)">
+                                <label class="flex items-center gap-2 text-xs font-bold text-stone-700 cursor-pointer"
+                                    onclick="event.stopPropagation()">
+                                    <input type="checkbox" id="terms-all" checked
+                                        onchange="toggleAllTerms(this.checked)"
+                                        class="w-4 h-4 rounded text-black focus:ring-black cursor-pointer">
                                     <span>[전체 동의] 개인정보 취급 방침</span>
                                 </label>
-                                <button type="button" class="p-1 text-stone-400 hover:text-stone-600 focus:outline-none" aria-label="약관 펼치기">
-                                    <svg id="terms-arrow-icon" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                <button type="button" class="p-1 text-stone-400 hover:text-stone-600 focus:outline-none"
+                                    aria-label="약관 펼치기">
+                                    <svg id="terms-arrow-icon"
+                                        class="w-4 h-4 transform transition-transform duration-200" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 </button>
                             </div>
@@ -2025,24 +2074,33 @@
                             <div id="terms-sub-list" class="hidden pl-6 pt-2.5 space-y-2 text-xs text-stone-500">
                                 <div class="flex items-center justify-between">
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" id="terms-service" checked onchange="updateAllTermsState()" class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
+                                        <input type="checkbox" id="terms-service" checked
+                                            onchange="updateAllTermsState()"
+                                            class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
                                         <span><strong class="text-stone-700 font-bold">[필수]</strong> 이용약관 동의</span>
                                     </label>
-                                    <button type="button" onclick="openLegalModal('terms')" class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
+                                    <button type="button" onclick="openLegalModal('terms')"
+                                        class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" id="terms-privacy" checked onchange="updateAllTermsState()" class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
+                                        <input type="checkbox" id="terms-privacy" checked
+                                            onchange="updateAllTermsState()"
+                                            class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
                                         <span><strong class="text-stone-700 font-bold">[필수]</strong> 개인정보 수집 동의</span>
                                     </label>
-                                    <button type="button" onclick="openLegalModal('privacy')" class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
+                                    <button type="button" onclick="openLegalModal('privacy')"
+                                        class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" id="terms-marketing" checked onchange="updateAllTermsState()" class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
+                                        <input type="checkbox" id="terms-marketing" checked
+                                            onchange="updateAllTermsState()"
+                                            class="sub-term-check w-3.5 h-3.5 rounded text-black focus:ring-black cursor-pointer">
                                         <span><strong class="text-stone-400 font-normal">[선택]</strong> 마케팅 수신 동의</span>
                                     </label>
-                                    <button type="button" onclick="openLegalModal('marketing')" class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
+                                    <button type="button" onclick="openLegalModal('marketing')"
+                                        class="text-[11px] text-stone-400 hover:text-stone-600 hover:underline">보기</button>
                                 </div>
                             </div>
                         </div>
@@ -2105,17 +2163,25 @@
     </div>
 
     <!-- 약관 상세 보기 모달 -->
-    <div id="legal-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-[100000] opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-95 transition-transform duration-300 max-h-[80vh] flex flex-col">
+    <div id="legal-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-[100000] opacity-0 pointer-events-none transition-opacity duration-300">
+        <div
+            class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-95 transition-transform duration-300 max-h-[80vh] flex flex-col">
             <div class="flex items-center justify-between mb-4 border-b border-stone-100 pb-3">
                 <h3 id="legal-modal-title" class="text-lg font-bold text-stone-900">약관 상세</h3>
-                <button type="button" onclick="closeLegalModal()" aria-label="닫기" class="text-stone-400 hover:text-stone-600 p-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button type="button" onclick="closeLegalModal()" aria-label="닫기"
+                    class="text-stone-400 hover:text-stone-600 p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
                 </button>
             </div>
-            <div id="legal-modal-body" class="text-xs text-stone-600 space-y-3 overflow-y-auto pr-2 leading-relaxed flex-1">
+            <div id="legal-modal-body"
+                class="text-xs text-stone-600 space-y-3 overflow-y-auto pr-2 leading-relaxed flex-1">
             </div>
-            <button type="button" onclick="closeLegalModal()" class="w-full bg-black text-white font-bold py-2.5 rounded-xl hover:bg-stone-800 transition-colors text-sm mt-4">
+            <button type="button" onclick="closeLegalModal()"
+                class="w-full bg-black text-white font-bold py-2.5 rounded-xl hover:bg-stone-800 transition-colors text-sm mt-4">
                 확인
             </button>
         </div>
