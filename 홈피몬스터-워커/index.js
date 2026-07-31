@@ -194,9 +194,14 @@ export default {
           return jsonResponse({ success: true, ignored: true });
         }
         
+        // 한국 시간(KST, UTC+9) 기준 오늘 날짜 (YYYY-MM-DD)
+        const kstNow = new Date(Date.now() + (9 * 60 * 60 * 1000));
+        const kstDateStr = kstNow.toISOString().split('T')[0];
+
         const pvPayload = {
           ip_address: ip,
-          user_agent: userAgent
+          user_agent: userAgent,
+          visit_date: kstDateStr
         };
         const pvResp = await fetch(`${env.SUPABASE_URL}/rest/v1/page_views`, {
           method: 'POST',
