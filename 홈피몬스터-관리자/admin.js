@@ -99,23 +99,30 @@ async function checkLogin() {
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    loginError.classList.add('hidden');
     try {
         const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: 'admin@easyl.net',
             password: passwordInput.value
         });
-        if (!error && data.session) {
+        if (error) {
+            console.error("Login error from Supabase:", error.message);
+            loginError.innerText = error.message === 'Invalid login credentials' ? '비밀번호가 일치하지 않습니다.' : '로그인 실패: ' + error.message;
+            loginError.classList.remove('hidden');
+            return;
+        }
+        if (data.session) {
             sessionStorage.setItem('adminLoggedIn', 'true');
             loginOverlay.style.opacity = '0';
             setTimeout(() => loginOverlay.classList.add('hidden'), 300);
-            loginError.classList.add('hidden');
             fetchSettings();
             fetchLeads();
-            return;
         }
-    } catch (authErr) {}
-    loginError.classList.remove('hidden');
-    loginError.innerText = '비밀번호가 일치하지 않습니다.';
+    } catch (authErr) {
+        console.error("Unexpected login error:", authErr);
+        loginError.innerText = '오류 발생: ' + (authErr.message || authErr);
+        loginError.classList.remove('hidden');
+    }
 });
 
 logoutBtn.addEventListener('click', () => {
