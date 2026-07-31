@@ -9,7 +9,7 @@
 const CONFIG = {
     SUPABASE_URL: 'https://ctszrxwezwvisvqkcrzg.supabase.co',
     SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3pyeHdlend2aXN2cWtjcnpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDI2NjEsImV4cCI6MjEwMDk3ODY2MX0.ElX97vgA6rULL_W-SwD87cOvAlTI00gKaVgansTLiXg',
-    ADMIN_PASSWORD_HASH: 'admin123',
+    ADMIN_PASSWORD_HASH: 'tldkwltn',
     PAGE_SIZE: 20
 };
 
