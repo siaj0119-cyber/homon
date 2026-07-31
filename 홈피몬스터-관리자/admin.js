@@ -94,14 +94,7 @@ function checkLogin() {
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (passwordInput.value === 'tldkwltn' || passwordInput.value === 'admin123') {
-        sessionStorage.setItem('adminLoggedIn', 'true');
-        loginOverlay.style.opacity = '0';
-        setTimeout(() => loginOverlay.classList.add('hidden'), 300);
-        loginError.classList.add('hidden');
-        fetchSettings();
-        fetchLeads();
-    } else {
+    if (false) {
         try {
             const { data, error } = await supabaseClient.auth.signInWithPassword({
                 email: 'admin@easyl.net',
