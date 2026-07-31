@@ -71,7 +71,8 @@ DROP POLICY IF EXISTS "Allow all for leads" ON public.leads;
 CREATE POLICY "Allow insert for leads (anon)" ON public.leads FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow all for leads (auth)" ON public.leads FOR ALL USING (auth.uid() IS NOT NULL);
 
--- page_views: 누구나 등록(INSERT)은 가능하지만, 조회/수정/삭제는 관리자(인증된 사용자)만 가능
+-- page_views: 누구나 등록(INSERT) 및 조회(SELECT) 가능. 수정/삭제는 관리자(인증된 사용자)만 가능
 DROP POLICY IF EXISTS "Allow all for page_views" ON public.page_views;
+CREATE POLICY "Allow select for page_views (anon)" ON public.page_views FOR SELECT USING (true);
 CREATE POLICY "Allow insert for page_views (anon)" ON public.page_views FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow all for page_views (auth)" ON public.page_views FOR ALL USING (auth.uid() IS NOT NULL);
