@@ -45,7 +45,8 @@
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preload" href="https://img.easyl.net/mac.png" as="image">
+    <link href="tailwind.css" rel="stylesheet">
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
@@ -409,7 +410,7 @@
         <!-- 오른쪽: 햄버거 버튼 -->
         <button onclick="toggleMenu()" aria-label="메뉴 열기"
             class="p-2 -mr-2 rounded-xl text-stone-800 hover:text-black active:scale-95 transition-all focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16">
                 </path>
             </svg>
@@ -497,7 +498,7 @@
                     </div>
 
                     <!-- 2. 맥북 프레임 이미지 -->
-                    <img src="https://img.easyl.net/mac.png" alt="MacBook Mockup"
+                    <img src="https://img.easyl.net/mac.png" alt="MacBook Mockup" width="651" height="378" fetchpriority="high"
                         class="relative z-10 w-full h-auto pointer-events-none drop-shadow-2xl">
                 </div>
             </div>
@@ -570,7 +571,7 @@
                     <!-- [제거 용이] 캐릭터 뒷배경 ₩ 무한 회전 띠 END -->
                     <!-- ================================================================= -->
 
-                    <img src="https://img.easyl.net/head.png" alt="홈페이지 제작 안내 이미지"
+                    <img src="https://img.easyl.net/head.png" alt="홈페이지 제작 안내 이미지" width="385" height="385"
                         class="relative z-10 w-full max-w-[220px] sm:max-w-[230px] h-auto mx-auto pointer-events-none pulse-scale character-img-shadow"
                         onerror="this.style.display='none';">
                 </div>
@@ -781,7 +782,7 @@
                 <!-- [제거 용이] 캐릭터 뒷배경 ₩ 무한 회전 띠 END -->
                 <!-- ================================================================= -->
 
-                <img src="https://img.easyl.net/x.png" alt="솔루션 안내 이미지"
+                <img src="https://img.easyl.net/x.png" alt="솔루션 안내 이미지" width="385" height="385"
                     class="relative z-10 w-full max-w-[220px] sm:max-w-[230px] h-auto mx-auto pointer-events-none pulse-scale character-img-shadow"
                     onerror="if(this.src && !this.src.endsWith('/')) { this.style.display='none'; } else { this.style.display='block'; }">
             </div>
@@ -1640,7 +1641,7 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img src="https://img.easyl.net/p1.png" alt="온라인 강의 플랫폼"
+                        <img src="https://img.easyl.net/p1.png" alt="온라인 강의 플랫폼" width="478" height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1656,7 +1657,7 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img src="https://img.easyl.net/p2.png" alt="웹빌더 서비스"
+                        <img src="https://img.easyl.net/p2.png" alt="웹빌더 서비스" width="478" height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1672,7 +1673,7 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img src="https://img.easyl.net/p3.png" alt="체험단 모집 플랫폼"
+                        <img src="https://img.easyl.net/p3.png" alt="체험단 모집 플랫폼" width="478" height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1688,7 +1689,7 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img src="https://img.easyl.net/p4.png" alt="SNS 분석 서비스"
+                        <img src="https://img.easyl.net/p4.png" alt="SNS 분석 서비스" width="478" height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1705,7 +1706,7 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img src="https://img.easyl.net/p1.png" alt="온라인 강의 플랫폼"
+                        <img src="https://img.easyl.net/p1.png" alt="온라인 강의 플랫폼" width="478" height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1721,7 +1722,7 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img src="https://img.easyl.net/p2.png" alt="웹빌더 서비스"
+                        <img src="https://img.easyl.net/p2.png" alt="웹빌더 서비스" width="478" height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1737,7 +1738,7 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img src="https://img.easyl.net/p3.png" alt="체험단 모집 플랫폼"
+                        <img src="https://img.easyl.net/p3.png" alt="체험단 모집 플랫폼" width="478" height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -1753,7 +1754,7 @@
                 <div class="portfolio-card shrink-0 w-[85%] sm:w-[380px] flex flex-col cursor-pointer group">
                     <div
                         class="w-full aspect-[16/8.3] rounded-2xl bg-stone-200 shadow-lg overflow-hidden relative border border-stone-300">
-                        <img src="https://img.easyl.net/p4.png" alt="SNS 분석 서비스"
+                        <img src="https://img.easyl.net/p4.png" alt="SNS 분석 서비스" width="478" height="261"
                             class="portfolio-img w-full h-full object-cover transition-transform duration-700 ease-out">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -2078,7 +2079,7 @@
         class="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm">
         <div
             class="modal-content bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center relative border border-stone-200">
-            <button onclick="closeModal()"
+            <button onclick="closeModal()" aria-label="닫기"
                 class="absolute top-4 right-4 text-stone-400 hover:text-black transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -2108,8 +2109,8 @@
         <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-95 transition-transform duration-300 max-h-[80vh] flex flex-col">
             <div class="flex items-center justify-between mb-4 border-b border-stone-100 pb-3">
                 <h3 id="legal-modal-title" class="text-lg font-bold text-stone-900">약관 상세</h3>
-                <button type="button" onclick="closeLegalModal()" class="text-stone-400 hover:text-stone-600 p-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button type="button" onclick="closeLegalModal()" aria-label="닫기" class="text-stone-400 hover:text-stone-600 p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             <div id="legal-modal-body" class="text-xs text-stone-600 space-y-3 overflow-y-auto pr-2 leading-relaxed flex-1">
@@ -2130,9 +2131,9 @@
                     <a href="#" onclick="toggleMenu()" class="flex items-center gap-2">
                         <span class="font-black text-xl text-black">홈피 몬스터</span>
                     </a>
-                    <button onclick="toggleMenu()"
+                    <button onclick="toggleMenu()" aria-label="메뉴 닫기"
                         class="p-2 text-stone-400 hover:text-black transition-colors rounded-lg hover:bg-stone-100">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -2412,7 +2413,7 @@
         // ==========================================
     </script>
     <!-- Supabase (설정 읽기 전용) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <script>
         // ============================================
         // 홈피몬스터 — 이지랜딩 방식 폼 제출 로직
