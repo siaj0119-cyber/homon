@@ -262,11 +262,11 @@
         /* 무한 컨베이어 벨트 마키 애니메이션 */
         @keyframes marquee {
             0% {
-                transform: translateX(0%);
+                transform: translate3d(0, 0, 0);
             }
 
             100% {
-                transform: translateX(-50%);
+                transform: translate3d(-50%, 0, 0);
             }
         }
 
@@ -274,16 +274,18 @@
             display: flex;
             width: max-content;
             animation: marquee 16s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         /* 맥북 뒷배경 대각선 HOMPI MONSTER 컨베이어 벨트 마키 */
         @keyframes hompiTapeScroll {
             0% {
-                transform: translateX(0%);
+                transform: translate3d(0, 0, 0);
             }
 
             100% {
-                transform: translateX(-50%);
+                transform: translate3d(-50%, 0, 0);
             }
         }
 
@@ -291,15 +293,17 @@
             display: flex;
             width: max-content;
             animation: hompiTapeScroll 32s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         @keyframes hompiTapeScrollReverse {
             0% {
-                transform: translateX(-50%);
+                transform: translate3d(-50%, 0, 0);
             }
 
             100% {
-                transform: translateX(0%);
+                transform: translate3d(0, 0, 0);
             }
         }
 
@@ -307,39 +311,47 @@
             display: flex;
             width: max-content;
             animation: hompiTapeScrollReverse 32s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         /* 세로 무한 스크롤 마키 애니메이션 (후기 섹션) */
         @keyframes vScrollUp {
             0% {
-                transform: translateY(0);
+                transform: translate3d(0, 0, 0);
             }
 
             100% {
-                transform: translateY(-50%);
+                transform: translate3d(0, -50%, 0);
             }
         }
 
         @keyframes vScrollDown {
             0% {
-                transform: translateY(-50%);
+                transform: translate3d(0, -50%, 0);
             }
 
             100% {
-                transform: translateY(0);
+                transform: translate3d(0, 0, 0);
             }
         }
 
         .animate-v-scroll-up {
             animation: vScrollUp 28s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         .animate-v-scroll-down {
             animation: vScrollDown 34s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         .animate-v-scroll-up-fast {
             animation: vScrollUp 24s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         /* 마우스 스크롤 아이콘 및 휠 애니메이션 */
