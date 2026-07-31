@@ -2882,6 +2882,8 @@
             object-fit: contain;
             filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
             display: block;
+            transform: translateZ(0);
+            will-change: filter;
         }
 
         @media (min-width: 768px) {
@@ -2895,13 +2897,13 @@
     <div class="hp-floating-container">
         <!-- 1. 전화 연결 버튼 -->
         <a href="tel:010-3972-4624" class="hp-floating-btn" aria-label="전화 상담">
-            <img loading="lazy" src="https://img.easyl.net/call.png" alt="전화 상담" class="hp-floating-img">
+            <img src="https://img.easyl.net/call.png" alt="전화 상담" class="hp-floating-img">
         </a>
 
         <!-- 2. 카카오 채널 버튼 -->
         <a href="http://pf.kakao.com/_pxeQxnX/chat" target="_blank" rel="noopener noreferrer" class="hp-floating-btn"
             aria-label="카카오톡 상담">
-            <img loading="lazy" src="https://img.easyl.net/kakao.png" alt="카카오톡 상담" class="hp-floating-img">
+            <img src="https://img.easyl.net/kakao.png" alt="카카오톡 상담" class="hp-floating-img">
         </a>
     </div>
 </body>
