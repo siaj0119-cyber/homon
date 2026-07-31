@@ -80,13 +80,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Auth Logic
 // ============================================
 async function checkLogin() {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true' && session;
-    if (isLoggedIn) {
-        loginOverlay.classList.add('hidden');
-        fetchSettings();
-        fetchLeads();
-    } else {
+    try {
+        const { data: { session }, error } = await supabaseClient.auth.getSession();
+        const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true' && session && !error;
+        if (isLoggedIn) {
+            loginOverlay.classList.add('hidden');
+            fetchSettings();
+            fetchLeads();
+        } else {
+            sessionStorage.removeItem('adminLoggedIn');
+            loginOverlay.classList.remove('hidden');
+        }
+    } catch(err) {
         sessionStorage.removeItem('adminLoggedIn');
         loginOverlay.classList.remove('hidden');
     }
