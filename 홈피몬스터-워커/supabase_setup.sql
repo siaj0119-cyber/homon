@@ -61,18 +61,25 @@ CREATE TABLE IF NOT EXISTS public.page_views (
 ALTER TABLE public.page_views ENABLE ROW LEVEL SECURITY;
 
 -- [보안 강화된 RLS 정책]
--- external_settings: 누구나 조회(SELECT) 가능. 관리자(인증된 사용자)만 수정 가능.
+-- external_settings: 누구나 조회(SELECT) 가능. 관리자만 수정 가능.
 DROP POLICY IF EXISTS "Allow all for settings" ON public.external_settings;
+DROP POLICY IF EXISTS "Allow select for settings (anon)" ON public.external_settings;
+DROP POLICY IF EXISTS "Allow all for settings (auth)" ON public.external_settings;
 CREATE POLICY "Allow select for settings (anon)" ON public.external_settings FOR SELECT USING (true);
 CREATE POLICY "Allow all for settings (auth)" ON public.external_settings FOR ALL USING (auth.uid() IS NOT NULL);
 
--- leads: 누구나 등록(INSERT)은 가능하지만, 조회/수정/삭제는 관리자(인증된 사용자)만 가능
+-- leads: 누구나 등록(INSERT) 가능. 조회/수정/삭제는 관리자만 가능.
 DROP POLICY IF EXISTS "Allow all for leads" ON public.leads;
+DROP POLICY IF EXISTS "Allow insert for leads (anon)" ON public.leads;
+DROP POLICY IF EXISTS "Allow all for leads (auth)" ON public.leads;
 CREATE POLICY "Allow insert for leads (anon)" ON public.leads FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow all for leads (auth)" ON public.leads FOR ALL USING (auth.uid() IS NOT NULL);
 
--- page_views: 누구나 등록(INSERT) 및 조회(SELECT) 가능. 수정/삭제는 관리자(인증된 사용자)만 가능
+-- page_views: 누구나 등록(INSERT) 및 조회(SELECT) 가능. 수정/삭제는 관리자만 가능.
 DROP POLICY IF EXISTS "Allow all for page_views" ON public.page_views;
+DROP POLICY IF EXISTS "Allow select for page_views (anon)" ON public.page_views;
+DROP POLICY IF EXISTS "Allow insert for page_views (anon)" ON public.page_views;
+DROP POLICY IF EXISTS "Allow all for page_views (auth)" ON public.page_views;
 CREATE POLICY "Allow select for page_views (anon)" ON public.page_views FOR SELECT USING (true);
 CREATE POLICY "Allow insert for page_views (anon)" ON public.page_views FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow all for page_views (auth)" ON public.page_views FOR ALL USING (auth.uid() IS NOT NULL);
