@@ -9,7 +9,6 @@
 const CONFIG = {
     SUPABASE_URL: 'https://ctszrxwezwvisvqkcrzg.supabase.co',
     SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0c3pyeHdlend2aXN2cWtjcnpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDI2NjEsImV4cCI6MjEwMDk3ODY2MX0.ElX97vgA6rULL_W-SwD87cOvAlTI00gKaVgansTLiXg',
-    ADMIN_PASSWORD_HASH: 'tldkwltn',
     PAGE_SIZE: 20
 };
 
@@ -82,26 +81,52 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================
 // Auth Logic
 // ============================================
-function checkLogin() {
-    const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
-    if (isLoggedIn === 'true') {
+async function checkLogin() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+        sessionStorage.setItem('adminLoggedIn', 'true');
         loginOverlay.classList.add('hidden');
+        fetchSettings();
+        fetchLeads();
+    } else {
+        sessionStorage.removeItem('adminLoggedIn');
+        loginOverlay.classList.remove('hidden');
     }
 }
+}
 
-loginForm.addEventListener('submit', (e) => {
+loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (passwordInput.value === CONFIG.ADMIN_PASSWORD_HASH) {
+    const btn = loginForm.querySelector('button[type="submit"]');
+    const originalText = btn.innerText;
+    btn.innerText = '로딩중...';
+    btn.disabled = true;
+    
+    // 이메일은 admin@easyl.net 으로 고정, 비밀번호만 입력받아 인증
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: 'admin@easyl.net',
+        password: passwordInput.value
+    });
+    
+    if (error) {
+        loginError.classList.remove('hidden');
+        loginError.innerText = '비밀번호가 일치하지 않습니다.';
+    } else {
         sessionStorage.setItem('adminLoggedIn', 'true');
         loginOverlay.style.opacity = '0';
         setTimeout(() => loginOverlay.classList.add('hidden'), 300);
         loginError.classList.add('hidden');
-    } else {
-        loginError.classList.remove('hidden');
+        
+        // 로그인 성공 후 데이터 재로드
+        fetchSettings();
+        fetchLeads();
     }
+    btn.innerText = originalText;
+    btn.disabled = false;
 });
 
-logoutBtn.addEventListener('click', () => {
+logoutBtn.addEventListener('click', async () => {
+    await supabaseClient.auth.signOut();
     sessionStorage.removeItem('adminLoggedIn');
     loginOverlay.classList.remove('hidden');
     loginOverlay.style.opacity = '1';

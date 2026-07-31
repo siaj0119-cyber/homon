@@ -48,13 +48,6 @@ ON CONFLICT (id) DO NOTHING;
 ALTER TABLE public.leads ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.external_settings ENABLE ROW LEVEL SECURITY;
 
--- 누구나 읽고 쓸 수 있게 정책 추가 (테스트 및 쉬운 운영 목적)
-DROP POLICY IF EXISTS "Allow all for leads" ON public.leads;
-CREATE POLICY "Allow all for leads" ON public.leads FOR ALL USING (true);
-
-DROP POLICY IF EXISTS "Allow all for settings" ON public.external_settings;
-CREATE POLICY "Allow all for settings" ON public.external_settings FOR ALL USING (true);
-
 -- 5. 유입(방문자 수) 측정을 위한 'page_views' 테이블 생성
 CREATE TABLE IF NOT EXISTS public.page_views (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
@@ -65,7 +58,20 @@ CREATE TABLE IF NOT EXISTS public.page_views (
   CONSTRAINT page_views_pkey PRIMARY KEY (id),
   CONSTRAINT page_views_ip_date_key UNIQUE (ip_address, visit_date)
 );
-
 ALTER TABLE public.page_views ENABLE ROW LEVEL SECURITY;
+
+-- [보안 강화된 RLS 정책]
+-- external_settings: 누구나 조회(SELECT) 가능. 관리자(인증된 사용자)만 수정 가능.
+DROP POLICY IF EXISTS "Allow all for settings" ON public.external_settings;
+CREATE POLICY "Allow select for settings (anon)" ON public.external_settings FOR SELECT USING (true);
+CREATE POLICY "Allow all for settings (auth)" ON public.external_settings FOR ALL USING (auth.uid() IS NOT NULL);
+
+-- leads: 누구나 등록(INSERT)은 가능하지만, 조회/수정/삭제는 관리자(인증된 사용자)만 가능
+DROP POLICY IF EXISTS "Allow all for leads" ON public.leads;
+CREATE POLICY "Allow insert for leads (anon)" ON public.leads FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow all for leads (auth)" ON public.leads FOR ALL USING (auth.uid() IS NOT NULL);
+
+-- page_views: 누구나 등록(INSERT)은 가능하지만, 조회/수정/삭제는 관리자(인증된 사용자)만 가능
 DROP POLICY IF EXISTS "Allow all for page_views" ON public.page_views;
-CREATE POLICY "Allow all for page_views" ON public.page_views FOR ALL USING (true);
+CREATE POLICY "Allow insert for page_views (anon)" ON public.page_views FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow all for page_views (auth)" ON public.page_views FOR ALL USING (auth.uid() IS NOT NULL);
